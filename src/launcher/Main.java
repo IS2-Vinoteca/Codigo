@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.swing.SwingUtilities;
 
 public class Main {
-	//holi, hola
+	//holi, hola, naza la mas linda
 	//private static Controller control;
 	
 	private static void startGUIMode(/*Controller control*/) throws IOException {
