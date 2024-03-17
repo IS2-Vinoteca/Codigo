@@ -5,8 +5,6 @@ import java.awt.Image;
 
 import javax.swing.*;
 
-import control.Controller;
-
 
 public class MainWindow extends JFrame{
  
@@ -47,7 +45,7 @@ public class MainWindow extends JFrame{
 		
 		JButton menu = new JButton("Menu Principal") ; 
 		menu.addActionListener((e)->{
-			//controller.mostrarMenuWindow();
+			controller.showMenuPrincipalWindow();
 			dispose();
 		}) ; 
 		
