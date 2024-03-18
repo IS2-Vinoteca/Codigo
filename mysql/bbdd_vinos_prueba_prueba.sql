@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bbdd_vinos_prueba
+-- Host: 127.0.0.1    Database: IS2-bbdd-vinoteca
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
