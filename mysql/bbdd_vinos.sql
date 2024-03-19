@@ -24,7 +24,7 @@ CREATE TABLE `vinos` (
   `alcohol_percentage` double DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `` (`id`,`winery`,`wine`,`year`,`rating`,`num_reviews`,`num_reviews_grp`,`region`,`price`,`type`,`body`,`acidity`,`acidity_level`,`taste`,`accomp_meal`,`category`,`alcohol_percentage`,`description`) VALUES (1,'Descendientes de J. Palacios','La Faraona Bierzo (Corullon)',2010,4.6,28,'not important at all','Bierzo',3119.08,'Red',4,3,'high','dry','','Red',13.5,'La Faraona Bierzo from Descendientes de J. Palacios is known for its intense. complex. and fruity flavor profile. It is a dry wine with moderate tannins and a good acidity level. The fruit flavors may include dark cherry. blackberry. and plum. with hints of spice and earthy undertones. This wine is best accompanied by rich and hearty dishes such as grilled or roasted meats. stews. and strong cheeses.');
 INSERT INTO `` (`id`,`winery`,`wine`,`year`,`rating`,`num_reviews`,`num_reviews_grp`,`region`,`price`,`type`,`body`,`acidity`,`acidity_level`,`taste`,`accomp_meal`,`category`,`alcohol_percentage`,`description`) VALUES (2,'Vega Sicilia','Unico',1965,4.6,218,'not important at all','Ribera del Duero',2884.04,'Ribera Del Duero Red',5,3,'high','tannicfruity','','Red',13.5,'Ribera del Duero red wine is typically characterized as full-bodied and complex. with high tannins and acidity. It often displays flavors of dark fruit such as blackberry and plum. as well as herbal and spicy notes. Overall. it can be classified as a tannic and fruity wine.');
