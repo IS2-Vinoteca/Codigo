@@ -3,10 +3,10 @@ import java.sql.*;
 
 public class DBConnection {
 	/**Parametros de conexion**/
-	static String bd = "IS2-bbdd-vinoteca";
+	static String bd = "is2_vinoteca_bbdd";
 	static String login = "root"; 
 	static String password = "rootmysqlis2";
-	static String url = "jdbc:mysql://localhost/"+bd;
+	static String url = "jdbc:mysql://localhost/is2_vinoteca_bbdd";
 	
 	Connection connection = null; //representa el contexto de una conexión con la BBDD
 	
@@ -32,7 +32,7 @@ public class DBConnection {
 		connection = null;
 	}
 	
-	public void executeQuery() { //y devuelve un objeto de tipo ResultSet, que dará acceso a los resultados de la consulta que se haya ejecutado
+	/*public void executeQuery() { //y devuelve un objeto de tipo ResultSet, que dará acceso a los resultados de la consulta que se haya ejecutado
 		String query = " SELECT nombre, poblacion FROM prueba";
 		try ( Statement stmt = connection.createStatement ()) {
 			ResultSet rs = stmt.executeQuery ( query );
@@ -45,7 +45,24 @@ public class DBConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}*/
+	
+	public void executeQuery() {
+	    String query = "SELECT id, nombre, tipo, empresa FROM usuarios";
+	    try (Statement stmt = connection.createStatement()) {
+	        ResultSet rs = stmt.executeQuery(query);
+	        while (rs.next()) {
+	            int id = rs.getInt("id");
+	            String nombre = rs.getString("nombre");
+	            String tipo = rs.getString("tipo");
+	            String empresa = rs.getString("empresa");
+	            System.out.println("ID: " + id + ", Nombre: " + nombre + ", Tipo: " + tipo + ", Empresa: " + empresa);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
+
 	
 	public void executeUpdate() { // insertar, eliminar o modificar datos
 		String query = "UPDATE Provincias SET poblacion=45000 WHERE id=1";
