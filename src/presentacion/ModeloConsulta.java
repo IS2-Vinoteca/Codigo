@@ -1,12 +1,60 @@
 package presentacion;
 
 import java.sql.*;
+import java.awt.*;
+import javax.swing.*;
 
-public class ModeloConsulta {
-    private static final String URL = "jdbc:mysql://localhost:3306/is2_vinoteca_bbdd";
+public class ModeloConsulta extends JDialog {
+    //fijarse en la clase AddUsuario -> usar clase DBConnection
+	private static final String URL = "jdbc:mysql://localhost:3306/is2_vinoteca_bbdd";
     private static final String USUARIO = "root";
-    private static final String CONTRASEÑA = "Root-password";
+    private static final String CONTRASEÑA = "rootmysqlis2"; //cada una su contraseña (esto lo borraremos cuando se utilice la clase DBConnection)
 
+    public ModeloConsulta(JFrame parent) {
+        super(parent, "Consultar vinos", true);
+        initGUI();
+        pack();
+        setLocationRelativeTo(parent);
+    }
+    
+    private void initGUI() {
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        setContentPane(mainPanel);
+
+        JLabel lblNombreVino = new JLabel("Nombre del Vino:");
+        JTextField txtNombreVino = new JTextField(20);
+        JButton btnConsulta = new JButton("Consultar");
+        JTextArea txtAreaResultado = new JTextArea(10, 30);
+
+        btnConsulta.addActionListener(e -> {
+            String nombreVino = txtNombreVino.getText();
+            String resultado = realizarConsulta(nombreVino);
+            txtAreaResultado.setText(resultado);
+        });
+
+        mainPanel.add(lblNombreVino);
+        mainPanel.add(txtNombreVino);
+        mainPanel.add(btnConsulta);
+        mainPanel.add(new JScrollPane(txtAreaResultado));
+
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Cambio aquí
+        setPreferredSize(new Dimension(400, 300));
+        pack();
+        setLocationRelativeTo(null);
+    }
+
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new MainWindow().setVisible(true);
+            }
+        });
+    }
+   
+    
+    //ya está implementado en DAOImpVino, comentar aqui y corregir código
     public String realizarConsulta(String nombreVino) {
         String resultados = "";
         Connection conexion = null;

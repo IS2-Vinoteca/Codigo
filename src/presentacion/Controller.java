@@ -8,7 +8,6 @@ public class Controller {
 	public Controller(MainWindow mainWindow) {
 		
 		this.mainWindow = mainWindow;
-		this.modelo = new ModeloConsulta(); // Crear instancia del modelo
 		
 	}
 	

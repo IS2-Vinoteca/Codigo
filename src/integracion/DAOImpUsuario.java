@@ -1,14 +1,42 @@
 package integracion;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
+import ddbb.DBConnection;
 import negocio.TUsuario;
 
 public class DAOImpUsuario implements DAOUsuario{
+    
+	private DBConnection dbConnection;
 
-	public int crearUsuario(TUsuario usuario) {
-		return 0;
-	}
+    public DAOImpUsuario() {
+        dbConnection = new DBConnection();
+    }
+    
+    public int crearUsuario(TUsuario usuario) {
+        int filasAfectadas = 0;
+
+        Connection conexion = dbConnection.getConnection();
+        if (conexion != null) {
+            String query = "INSERT INTO usuarios (nif, nombre, email) VALUES (?, ?, ?)";
+            try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
+                pstmt.setString(1, usuario.getNif());
+                pstmt.setString(2, usuario.getNombre());
+                pstmt.setString(3, usuario.getEmail());
+
+                filasAfectadas = pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                dbConnection.desconectar();
+            }
+        }
+
+        return filasAfectadas;
+    }
 	
 	public TUsuario buscarUsuario(String id){
 		return null;

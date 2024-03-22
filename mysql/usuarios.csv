@@ -1,4 +1,4 @@
-id,nombre,tipo,empresa
-1,Jose,administrador,Malbec
-2,Maria,empleado,Malbec
-3,Pepe,proveedor,VinosBuenos
+id,nif,nombre,email
+1,123,administrador,admin@
+2,456,empleado,emp@
+3,789,proveedor,prov@

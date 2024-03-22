@@ -1,9 +1,9 @@
 package presentacion;
 
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuPrincipalWindow extends JFrame{
 
@@ -33,11 +33,41 @@ public class MenuPrincipalWindow extends JFrame{
 //		botones.setAlignmentX(CENTER_ALIGNMENT);
 //		mainPanel.add(botones); 
 		
+		JButton nuevoUsuarioButton = new JButton("Añadir Nuevo Usuario");
+        nuevoUsuarioButton.setAlignmentX(CENTER_ALIGNMENT);
+        nuevoUsuarioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abrirDialogoNuevoUsuario();
+            }
+        });
+        mainPanel.add(nuevoUsuarioButton);
+        
+        JButton consulta_vinos = new JButton("Consultar vinos");
+        consulta_vinos.setAlignmentX(CENTER_ALIGNMENT);
+        consulta_vinos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	abrirDialogoConsulta();
+            }
+        });
+        mainPanel.add(consulta_vinos);
+        
 		pack() ;
 		setLocationRelativeTo(null) ; 
 		setVisible(true) ; 
 	}
+	
+    private void abrirDialogoNuevoUsuario() {
+    	AddUsuario nuevoUsuario = new AddUsuario(this);
+        nuevoUsuario.setVisible(true);
+    }
 
+    private void abrirDialogoConsulta() {
+        ModeloConsulta consulta = new ModeloConsulta(this);
+        consulta.setVisible(true);
+    }
+    
 	/**
 	 * 
 	 */
