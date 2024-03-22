@@ -9,6 +9,11 @@ import ddbb.DBConnection;
 
 public class Main {
 	
+	/*
+	 * 
+	 * HAY QUE SEPARAR LA CLASE MODELOCONSULTA EN DBCONNECTION, EN DAOVINO IMPLEMENTAR METODO DE CONSULTA
+	 */
+	
 	private static Controller control;
 	
 	private static void startGUIMode(Controller control) throws IOException {
@@ -34,6 +39,8 @@ public class Main {
 	        }
 
 	}
+	
+	
 	
 	
 }
