@@ -53,6 +53,8 @@ public class MenuPrincipalWindow extends JFrame{
         });
         mainPanel.add(consulta_vinos);
         
+        //añadir aquí el resto de botones
+        
 		pack() ;
 		setLocationRelativeTo(null) ; 
 		setVisible(true) ; 

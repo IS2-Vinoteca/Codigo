@@ -32,6 +32,7 @@ public class DBConnection {
 		connection = null;
 	}
 	
+	//codigo ejercicio de las diapositivas
 	/*public void executeQuery() { //y devuelve un objeto de tipo ResultSet, que dará acceso a los resultados de la consulta que se haya ejecutado
 		String query = " SELECT nombre, poblacion FROM prueba";
 		try ( Statement stmt = connection.createStatement ()) {
