@@ -13,5 +13,3 @@ public interface DAOUsuario {
 	public void eliminarUsuario(TUsuario usuario);
 	
 }
-
-/*naza probando*/
