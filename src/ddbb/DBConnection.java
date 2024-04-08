@@ -3,10 +3,10 @@ import java.sql.*;
 
 public class DBConnection {
 	/**Parametros de conexion**/
-	static String bd = "is2_vinoteca_bbdd";
+	static String bd = "is2-bbdd-vinoteca";
 	static String login = "root"; 
 	static String password = "rootmysqlis2"; //QUE CADA UNA PONGA SU CONTRASEÑA (ya lo corregiremos para tener todas la misma)
-	static String url = "jdbc:mysql://localhost/is2_vinoteca_bbdd";
+	static String url = "jdbc:mysql://localhost/is2-bbdd-vinoteca";
 	
 	Connection connection = null; //representa el contexto de una conexión con la BBDD
 	

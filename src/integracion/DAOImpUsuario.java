@@ -38,7 +38,7 @@ public class DAOImpUsuario implements DAOUsuario{
         return filasAfectadas;
     }
 	
-	public TUsuario buscarUsuario(String id){
+	public TUsuario buscarUsuario(String id){ //ver si el código de este metodo tiene que ir aqui o en TUsuario
 		return null;
 	}
 

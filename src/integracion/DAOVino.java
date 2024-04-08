@@ -17,6 +17,6 @@ public interface DAOVino {
 	public int crearVino(Vino vino);
 	public void actualizarVino(Vino vino);
 	public void eliminarVino(Vino vino);
-	public String realizarConsulta(String nombreVino);
+	public String realizarConsulta(String nombreVino); //hecho
 	
 }
