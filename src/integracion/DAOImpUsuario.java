@@ -16,8 +16,38 @@ public class DAOImpUsuario implements DAOUsuario{
         dbConnection = new DBConnection();
     }
     
-    public int crearUsuario(TUsuario usuario) {
-        int filasAfectadas = 0;
+
+	public List<TUsuario> buscarUsuarios() {
+		return null;
+	}
+
+	@Override
+	public TUsuario buscarUsuario(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void actualizarUsuario(TUsuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminarUsuario(TUsuario usuario) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean existeUsuario(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int addUsuario(TUsuario usuario) {
+		int filasAfectadas = -1; //devuelve -1 si no se ha añadido = ha fallado
 
         Connection conexion = dbConnection.getConnection();
         if (conexion != null) {
@@ -36,32 +66,6 @@ public class DAOImpUsuario implements DAOUsuario{
         }
 
         return filasAfectadas;
-    }
-	
-	public TUsuario buscarUsuario(String id){ //ver si el código de este metodo tiene que ir aqui o en TUsuario
-		return null;
-	}
-
-	public List<TUsuario> buscarUsuarios() {
-		return null;
-	}
-
-	@Override
-	public TUsuario buscarUsuarios(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void actualizarUsuario(TUsuario usuario) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void eliminarUsuario(TUsuario usuario) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	

@@ -1,10 +1,14 @@
 package negocio;
 import java.sql.*;
+import java.util.List;
+
 import ddbb.DBConnection; //ruta completa?
+import integracion.DAOImpUsuario;
+
 import java.io.Serializable;
 
 
-public class TUsuario implements Serializable{
+public class TUsuario implements Serializable, SAUsuario{
 	private String nif; 
 	private String nombre;
 	private String email;
@@ -15,8 +19,10 @@ public class TUsuario implements Serializable{
 	this.nombre = nombre;
 	this.email = email;
 	}
-
-	public TUsuario buscarUsuario(String id){
+	
+	//transfer, service application (SAP)
+	//esto iria en la parte de integracion?
+	/*public TUsuario buscarUsuario(String id){
 		DBConnection conex = new DBConnection();
 		TUsuario usuario = new TUsuario();
 		
@@ -43,8 +49,14 @@ public class TUsuario implements Serializable{
 		
 		return usuario;
 		
-		}
+		}*/
 
+	
+
+	
+	
+	
+	
 		public String getNif () {
 			return nif;
 		}
@@ -72,6 +84,38 @@ public class TUsuario implements Serializable{
 		@Override
 		public String toString() {
 		return "Usuario [nif=" + nif + ", nombre=" + nombre + ", email=" + email + "]";
+		}
+		@Override
+		public List<TUsuario> buscarUsuarios() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		@Override
+		public TUsuario buscarUsuario(String id) {
+			DAOImpUsuario daoimpusuario = new DAOImpUsuario();
+			//if (daoimpusuario.buscarUsuario(id) == null)				
+			return null;
+			
+		}
+		
+		@Override
+		public int addUsuario(TUsuario usuario) {
+			DAOImpUsuario daoimpusuario = new DAOImpUsuario();
+			if (daoimpusuario.existeUsuario(usuario.getNif()))
+				return -1;
+			else daoimpusuario.addUsuario(usuario);
+				return 0;
+		}
+		
+		@Override
+		public void actualizarUsuario(TUsuario usuario) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void eliminarUsuario(TUsuario usuario) {
+			// TODO Auto-generated method stub
+			
 		}
 	
 	

@@ -46,11 +46,12 @@ public class AddUsuario extends JDialog {
             String email = empresaField.getText();
 
             // Crear un nuevo usuario con los datos ingresados
+            //llama a capa negocio (SA) y ahi (TUsuario) llama al DAO
             DAOImpUsuario nuevoUsuario = new DAOImpUsuario();
             TUsuario new_user = new TUsuario(nif, nombre, email);
 
             // Guardar el nuevo usuario en la base de datos
-            int resultado = nuevoUsuario.crearUsuario(new_user);
+            int resultado = nuevoUsuario.addUsuario(new_user);
 
             // Verificar el resultado de la operación
             if (resultado > 0) {
