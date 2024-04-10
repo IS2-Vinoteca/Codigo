@@ -1,7 +1,6 @@
 package integracion;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,33 +26,12 @@ public class DAOImpVino implements DAOVino{
 	    ResultSet resultado = null;
 
 	    try {
-	        String sql = "SELECT * FROM vinos";
+	        String sql = "SELECT * FROM inventario";
 	        consulta = conexion.prepareStatement(sql);
 	        resultado = consulta.executeQuery();
 
 	        while (resultado.next()) {
-	            int id = resultado.getInt("id");
-	            String winery = resultado.getString("winery");
-	            String wine = resultado.getString("wine");
-	            int year = resultado.getInt("year");
-	            double rating = resultado.getDouble("rating");
-	            int num_reviews = resultado.getInt("num_reviews");
-	            String num_reviews_grp = resultado.getString("num_reviews_grp");
-	            String region = resultado.getString("region");
-	            double price = resultado.getDouble("price");
-	            String type = resultado.getString("type");
-	            int body = resultado.getInt("body");
-	            int acidity = resultado.getInt("acidity");
-	            String acidity_level = resultado.getString("acidity_level");
-	            String taste = resultado.getString("taste");
-	            String accomp_meal = resultado.getString("accomp_meal");
-	            String category = resultado.getString("category");
-	            double alcohol_percentage = resultado.getDouble("alcohol_percentage");
-	            int uds_vino = resultado.getInt("uds_vino");
-	            String description = resultado.getString("description");
-	            
-	            Vino vino = new Vino(id, winery, wine, year, rating, num_reviews, num_reviews_grp, price, region,
-	                    type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description);
+	            Vino vino = this.fillIn_vino(resultado);
 	            vinos.add(vino);
 	        }
 	    } catch (SQLException e) {
@@ -76,10 +54,38 @@ public class DAOImpVino implements DAOVino{
 
 	@Override
 	public Vino buscarVino(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		//String resultados = "";
+		Vino vino_buscado = null;
+	    Connection conexion = dbConnection.getConnection();
+	    PreparedStatement consulta = null;
+	    ResultSet resultado = null;
 
+	    try {
+	        String sql = "SELECT * FROM inventario WHERE id = ?";
+	        consulta = conexion.prepareStatement(sql);
+	        consulta.setInt(1, id); 
+	        resultado = consulta.executeQuery();
+
+	        while (resultado.next()) {	            
+	            vino_buscado = this.fillIn_vino(resultado);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (resultado != null)
+	                resultado.close();
+	            if (consulta != null)
+	                consulta.close();
+	            if (conexion != null)
+	                conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+		return vino_buscado;
+	}
+	
 	@Override
 	public int addVino(Vino vino) {
 		// TODO Auto-generated method stub
@@ -88,8 +94,49 @@ public class DAOImpVino implements DAOVino{
 
 	@Override
 	public void actualizarVino(Vino vino) {
-		// TODO Auto-generated method stub
-		
+	    Connection conexion = dbConnection.getConnection();
+	    PreparedStatement consulta = null;
+
+	    try {
+	        String sql = "UPDATE inventario SET winery = ?, wine = ?, year = ?, rating = ?, num_reviews = ?, "
+	        		+ "num_reviews_grp = ?, price = ?, region = ?, type = ?, body = ?, acidity = ?, "
+	        		+ "acidity_level = ?, taste = ?, accomp_meal = ?, category = ?, alcohol_percentage = ?, "
+	        		+ "uds_vino = ?, description = ? WHERE id = ?";
+	        consulta = conexion.prepareStatement(sql);
+	        
+	        consulta.setInt(1, vino.getId()); 
+	        consulta.setString(2, vino.getWinery());
+            consulta.setString(3, vino.getWine());
+            consulta.setInt(4, vino.getYear());
+            consulta.setDouble(5, vino.getRating());
+            consulta.setInt(6, vino.getNum_reviews());
+            consulta.setString(7, vino.getNum_reviews_grp());
+            consulta.setDouble(8, vino.getPrice());
+            consulta.setString(9, vino.getRegion());
+            consulta.setString(10, vino.getType());
+            consulta.setInt(11, vino.getBody());
+            consulta.setInt(12, vino.getAcidity());
+            consulta.setString(13, vino.getAcidity_level());
+            consulta.setString(14, vino.getTaste());
+            consulta.setString(15, vino.getAccomp_meal());
+            consulta.setString(16, vino.getCategory());
+            consulta.setDouble(17, vino.getAlcohol_percentage());
+            consulta.setInt(18, vino.getUds_vino());
+            consulta.setString(19, vino.getDescription());
+	        consulta.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (consulta != null)
+	                consulta.close();
+	            if (conexion != null)
+	                conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 
 	@Override
@@ -106,9 +153,9 @@ public class DAOImpVino implements DAOVino{
 	    ResultSet resultado = null;
 
 	    try {
-	        String sql = "SELECT * FROM vinos WHERE wine = ?";
+	        String sql = "SELECT * FROM inventario WHERE wine = ?";
 	        consulta = conexion.prepareStatement(sql);
-	        consulta.setString(1, nombreVino);
+	        consulta.setString(3, nombreVino); //TODO creo que tendria que ser 3
 	        resultado = consulta.executeQuery();
 
 	        while (resultado.next()) {
@@ -151,8 +198,153 @@ public class DAOImpVino implements DAOVino{
 
 	@Override
 	public String realizarConsultaBodega(String winery) {
+		String resultados = "";
+	    Connection conexion = dbConnection.getConnection();
+	    PreparedStatement consulta = null;
+	    ResultSet resultado = null;
+
+	    try {
+	        String sql = "SELECT * FROM inventario WHERE winery = ?";
+	        consulta = conexion.prepareStatement(sql);
+	        consulta.setString(2, winery); 
+	        resultado = consulta.executeQuery();
+
+	        while (resultado.next()) {
+	            resultados += this.fillIn_ResultadoConsulta(resultado);
+	        }
+	        
+	        // Si no se encontraron resultados, asigna el mensaje adecuado
+	        if (resultados.isEmpty()) {
+	            resultados = "No se ha encontrado ninguna bodega con ese nombre";
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        resultados = "Error al realizar la consulta: " + e.getMessage();
+	    } finally {
+	        try {
+	            if (resultado != null)
+	                resultado.close();
+	            if (consulta != null)
+	                consulta.close();
+	            if (conexion != null)
+	                conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return resultados;
+	}
+
+	@Override
+	public String realizarConsultaYear(int year) {
+		String resultados = "";
+	    Connection conexion = dbConnection.getConnection();
+	    PreparedStatement consulta = null;
+	    ResultSet resultado = null;
+
+	    try {
+	        String sql = "SELECT * FROM inventario WHERE year = ?";
+	        consulta = conexion.prepareStatement(sql);
+	        consulta.setInt(4, year); 
+	        resultado = consulta.executeQuery();
+
+	        while (resultado.next()) {
+	            resultados += this.fillIn_ResultadoConsulta(resultado);
+	        }
+	        
+	        // Si no se encontraron resultados, asigna el mensaje adecuado
+	        if (resultados.isEmpty()) {
+	            resultados = "No se ha encontrado vinos de ese annio en la base de datos";
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        resultados = "Error al realizar la consulta: " + e.getMessage();
+	    } finally {
+	        try {
+	            if (resultado != null)
+	                resultado.close();
+	            if (consulta != null)
+	                consulta.close();
+	            if (conexion != null)
+	                conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return resultados;
+	}
+
+	@Override
+	public String realizarConsultaPrecio(double price_min, double price_min) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String realizarConsultaAlcohol(double alcohol_percentaje) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String realizarConsultaTaste(String taste) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private Vino fillIn_vino(ResultSet resultado) throws SQLException {
+		int id = resultado.getInt("id");
+        String winery = resultado.getString("winery");
+        String wine = resultado.getString("wine");
+        int year = resultado.getInt("year");
+        double rating = resultado.getDouble("rating");
+        int num_reviews = resultado.getInt("num_reviews");
+        String num_reviews_grp = resultado.getString("num_reviews_grp");
+        String region = resultado.getString("region");
+        double price = resultado.getDouble("price");
+        String type = resultado.getString("type");
+        int body = resultado.getInt("body");
+        int acidity = resultado.getInt("acidity");
+        String acidity_level = resultado.getString("acidity_level");
+        String taste = resultado.getString("taste");
+        String accomp_meal = resultado.getString("accomp_meal");
+        String category = resultado.getString("category");
+        double alcohol_percentage = resultado.getDouble("alcohol_percentage");
+        int uds_vino = resultado.getInt("uds_vino");
+        String description = resultado.getString("description");
+        
+        return new Vino(id, winery, wine, year, rating, num_reviews, num_reviews_grp, price, region,
+                type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description);
+	}
+	
+	private String fillIn_ResultadoConsulta(ResultSet resultado) throws SQLException {
+		int id = resultado.getInt("id");
+        String winery = resultado.getString("winery");
+        String wine = resultado.getString("wine");
+        int year = resultado.getInt("year");
+        double rating = resultado.getDouble("rating");
+        int num_reviews = resultado.getInt("num_reviews");
+        String num_reviews_grp = resultado.getString("num_reviews_grp");
+        String region = resultado.getString("region");
+        double price = resultado.getDouble("price");
+        String type = resultado.getString("type");
+        int body = resultado.getInt("body");
+        int acidity = resultado.getInt("acidity");
+        String acidity_level = resultado.getString("acidity_level");
+        String taste = resultado.getString("taste");
+        String accomp_meal = resultado.getString("accomp_meal");
+        String category = resultado.getString("category");
+        double alcohol_percentage = resultado.getDouble("alcohol_percentage");
+        int uds_vino = resultado.getInt("uds_vino");
+        String description = resultado.getString("description");
+        
+        return "ID: " + id + ", Winery: " + winery + ", Wine: " + wine + ", Year: " + year + ", Rating: " + rating
+                + ", Num_reviews: " + num_reviews + ", Num_reviews_grp: " + num_reviews_grp + ", Region: "
+                + region + ", Price: " + price +", Type: " + type +", Body: " + body + ", Acidity: " + acidity + ", Acidity level: "
+                + acidity_level + ", Taste: " + taste + ", Accompanied meals: " + accomp_meal + ", Category: " + category + 
+                ", Alcohol Percentage: " + alcohol_percentage + ", Uds vino: " + uds_vino + ", Description: " + description + "\n";
 	}
 	
 }

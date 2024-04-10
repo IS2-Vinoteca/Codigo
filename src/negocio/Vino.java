@@ -1,5 +1,6 @@
 package negocio;
 
+import java.util.Calendar;
 import java.util.List;
 
 import integracion.DAOImpVino;
@@ -191,20 +192,12 @@ public class Vino implements SAVino{
 		
 		@Override
 		public List<Vino> buscarVinos(){ //para la DAO
-			/*List<PersonaConPoder> lista = new ArrayList<>();
-	    	for (int i = 0; i < personas.size(); i++) {
-	    		if (personas.get(i) instanceof SuperHeroe) 
-	    			lista.add(personas.get(i));
-	    	
-	    	}
-			return lista;*/
-			return null;
+			return this.daoVino.buscarVinos();
 		}
 		
 		@Override
 		public Vino buscarVino(int id) {
-			// TODO Auto-generated method stub
-			return null;
+			return this.daoVino.buscarVino(id);
 		}
 		@Override
 		public int addVino(Vino vino) {
@@ -213,8 +206,9 @@ public class Vino implements SAVino{
 		}
 		@Override
 		public void actualizarVino(Vino vino) {
-			// TODO Auto-generated method stub
-			
+			if(this.buscarVino(vino.getId()) != null) { //actualizo el vino solo si el vino existe
+				this.daoVino.actualizarVino(vino);
+			}			
 		}
 		@Override
 		public void eliminarVino(Vino vino) {
@@ -223,13 +217,40 @@ public class Vino implements SAVino{
 		}
 		@Override
 		public String realizarConsultaVino(String nombreVino) { 
+			return this.daoVino.realizarConsultaVino(nombreVino);
+		}
+		@Override
+		public String realizarConsultaBodega(String winery) { //devuelve una lista de los vinos de esa bodega
+			return this.daoVino.realizarConsultaBodega(winery);
+		}
+		@Override
+		public String realizarConsultaYear(int year) {
+			//miramos si el año es un valor valido: ni es negativo ni es un año mayor que el actual
+			if(year < 0 || year > Calendar.getInstance().get(Calendar.YEAR)) {
+				return "El annio consultado no es valido";
+			}
+			return this.daoVino.realizarConsultaYear(year);
+		}
+		@Override
+		public String realizarConsultaPrecio(double price_min, double price_max) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 		@Override
-		public String realizarConsultaBodega(String winery) { //devuelve una lista de los vinos de esa bodega
+		public String realizarConsultaAlcohol(double alcohol_percentaje) {
 			// TODO Auto-generated method stub
 			return null;
+		}
+		@Override
+		public String realizarConsultaTaste(String taste) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		public String getTaste() {
+			return this.taste;
+		}
+		public String getAccomp_meal() {
+			return this.accomp_meal;
 		}
 		
 }
