@@ -104,25 +104,25 @@ public class DAOImpVino implements DAOVino{
 	        		+ "uds_vino = ?, description = ? WHERE id = ?";
 	        consulta = conexion.prepareStatement(sql);
 	        
-	        consulta.setInt(1, vino.getId()); 
-	        consulta.setString(2, vino.getWinery());
-            consulta.setString(3, vino.getWine());
-            consulta.setInt(4, vino.getYear());
-            consulta.setDouble(5, vino.getRating());
-            consulta.setInt(6, vino.getNum_reviews());
-            consulta.setString(7, vino.getNum_reviews_grp());
-            consulta.setDouble(8, vino.getPrice());
-            consulta.setString(9, vino.getRegion());
-            consulta.setString(10, vino.getType());
-            consulta.setInt(11, vino.getBody());
-            consulta.setInt(12, vino.getAcidity());
-            consulta.setString(13, vino.getAcidity_level());
-            consulta.setString(14, vino.getTaste());
-            consulta.setString(15, vino.getAccomp_meal());
-            consulta.setString(16, vino.getCategory());
-            consulta.setDouble(17, vino.getAlcohol_percentage());
-            consulta.setInt(18, vino.getUds_vino());
-            consulta.setString(19, vino.getDescription());
+	        consulta.setInt(19, vino.getId()); 
+	        consulta.setString(1, vino.getWinery());
+            consulta.setString(2, vino.getWine());
+            consulta.setInt(3, vino.getYear());
+            consulta.setDouble(4, vino.getRating());
+            consulta.setInt(5, vino.getNum_reviews());
+            consulta.setString(6, vino.getNum_reviews_grp());
+            consulta.setDouble(7, vino.getPrice());
+            consulta.setString(8, vino.getRegion());
+            consulta.setString(9, vino.getType());
+            consulta.setInt(10, vino.getBody());
+            consulta.setInt(11, vino.getAcidity());
+            consulta.setString(12, vino.getAcidity_level());
+            consulta.setString(13, vino.getTaste());
+            consulta.setString(14, vino.getAccomp_meal());
+            consulta.setString(15, vino.getCategory());
+            consulta.setDouble(16, vino.getAlcohol_percentage());
+            consulta.setInt(17, vino.getUds_vino());
+            consulta.setString(18, vino.getDescription());
 	        consulta.executeUpdate();
 
 	    } catch (SQLException e) {
@@ -155,7 +155,7 @@ public class DAOImpVino implements DAOVino{
 	    try {
 	        String sql = "SELECT * FROM inventario WHERE wine = ?";
 	        consulta = conexion.prepareStatement(sql);
-	        consulta.setString(3, nombreVino); //TODO creo que tendria que ser 3
+	        consulta.setString(1, nombreVino); 
 	        resultado = consulta.executeQuery();
 
 	        while (resultado.next()) {
@@ -206,7 +206,7 @@ public class DAOImpVino implements DAOVino{
 	    try {
 	        String sql = "SELECT * FROM inventario WHERE winery = ?";
 	        consulta = conexion.prepareStatement(sql);
-	        consulta.setString(2, winery); 
+	        consulta.setString(1, winery); 
 	        resultado = consulta.executeQuery();
 
 	        while (resultado.next()) {
@@ -246,7 +246,7 @@ public class DAOImpVino implements DAOVino{
 	    try {
 	        String sql = "SELECT * FROM inventario WHERE year = ?";
 	        consulta = conexion.prepareStatement(sql);
-	        consulta.setInt(4, year); 
+	        consulta.setInt(1, year); 
 	        resultado = consulta.executeQuery();
 
 	        while (resultado.next()) {
@@ -277,9 +277,44 @@ public class DAOImpVino implements DAOVino{
 	}
 
 	@Override
-	public String realizarConsultaPrecio(double price_min, double price_min) {
-		// TODO Auto-generated method stub
-		return null;
+	public String realizarConsultaPrecio(double price_min, double price_max) {
+		String resultados = "";
+	    Connection conexion = dbConnection.getConnection();
+	    PreparedStatement consulta = null;
+	    ResultSet resultado = null;
+
+	    try {
+	        String sql = "SELECT * FROM inventario WHERE price >= ? AND price <= ?";
+            consulta = conexion.prepareStatement(sql);
+            consulta.setDouble(1, price_min);
+            consulta.setDouble(2, price_max);
+	        resultado = consulta.executeQuery();
+
+	        while (resultado.next()) {
+	            resultados += this.fillIn_ResultadoConsulta(resultado);
+	        }
+	        
+	        // Si no se encontraron resultados, asigna el mensaje adecuado
+	        if (resultados.isEmpty()) {
+	            resultados = "No se han encontrado vinos en ese rango de precios";
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        resultados = "Error al realizar la consulta: " + e.getMessage();
+	    } finally {
+	        try {
+	            if (resultado != null)
+	                resultado.close();
+	            if (consulta != null)
+	                consulta.close();
+	            if (conexion != null)
+	                conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return resultados;
 	}
 
 	@Override

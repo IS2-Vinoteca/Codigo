@@ -233,8 +233,11 @@ public class Vino implements SAVino{
 		}
 		@Override
 		public String realizarConsultaPrecio(double price_min, double price_max) {
-			// TODO Auto-generated method stub
-			return null;
+			//comprobar que ha introducido datos validos
+			if(price_min > price_max || price_min < 0 || price_max < 0) {
+				return "Los valores introducidos no son validos";
+			}
+			return this.daoVino.realizarConsultaPrecio(price_min, price_max);
 		}
 		@Override
 		public String realizarConsultaAlcohol(double alcohol_percentaje) {
