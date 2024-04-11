@@ -42,7 +42,7 @@ public class AddUsuario extends JDialog {
 		JButton agregarButton = new JButton("Agregar");
 		agregarButton.addActionListener(e -> {
 			// Obtener los datos ingresados
-			String nif = nombreField.getText();
+			int nif = Integer.parseInt(nombreField.getText());
 			String nombre = tipoField.getText();
 			String email = empresaField.getText();
 

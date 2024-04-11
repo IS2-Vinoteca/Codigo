@@ -10,26 +10,21 @@ import java.io.Serializable;
 
 public class TUsuario implements Serializable, SAUsuario{
 	
-	private int id; //ver como asignar el id de las tablas
-	private String nif; 
+	private int nif; 
 	private String nombre;
 	private String email;
 	
 	public TUsuario () {
 	}
 	
-	public TUsuario (String nif, String nombre, String email) {
+	public TUsuario (int nif, String nombre, String email) {
 	this.nif = nif; 
 	this.nombre = nombre;
 	this.email = email;
 	}
 	
-
-	public int getId() {
-		return id;
-	}
 	
-	public String getNif() {
+	public int getNif() {
 		return nif;
 	}
 	
@@ -37,7 +32,7 @@ public class TUsuario implements Serializable, SAUsuario{
 	return nombre;
 	}
 
-	public void setNif (String nif) {
+	public void setNif (int nif) {
 	this.nif = nif;
 	}
 	
@@ -67,9 +62,9 @@ public class TUsuario implements Serializable, SAUsuario{
 	}
 	
 	@Override
-	public TUsuario buscarUsuario(String id) {
+	public TUsuario buscarUsuario(int nif) {
 		DAOImpUsuario daoimpusuario = new DAOImpUsuario();
-		TUsuario usuario = daoimpusuario.buscarUsuario(id);
+		TUsuario usuario = daoimpusuario.buscarUsuario(nif);
 		if (usuario == null)				
 			return null;
 		else return usuario;
