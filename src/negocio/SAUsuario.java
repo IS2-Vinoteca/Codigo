@@ -3,6 +3,7 @@ package negocio;
 import java.util.List;
 
 public interface SAUsuario {
+	
 	public List<TUsuario> buscarUsuarios();
 	public TUsuario buscarUsuario(String id);
 	public int addUsuario(TUsuario usuario);
