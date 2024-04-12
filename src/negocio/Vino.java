@@ -214,8 +214,10 @@ public class Vino implements SAVino{
 	
 	@Override
 	public int addVino(Vino vino) {
-	
-		return this.daoVino.addVino(vino);
+		if(this.buscarVino(vino.getId()) == null) {
+			return this.daoVino.addVino(vino);
+		}
+		return -1;
 	}
 	
 	@Override
@@ -227,8 +229,9 @@ public class Vino implements SAVino{
 	
 	@Override
 	public void eliminarVino(Vino vino) {
-		
-		daoVino.eliminarVino(vino);
+		if(this.buscarVino(vino.getId()) != null) { //elimino el vino solo si el vino existe
+			daoVino.eliminarVino(vino);
+		}
 	}
 	
 	@Override
@@ -269,5 +272,10 @@ public class Vino implements SAVino{
 	public String realizarConsultaTaste(String taste) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private boolean datos_validos_init(Vino vino){
+		
+		return false;
 	}
 }
