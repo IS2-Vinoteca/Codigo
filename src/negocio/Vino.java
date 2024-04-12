@@ -214,7 +214,7 @@ public class Vino implements SAVino{
 	
 	@Override
 	public int addVino(Vino vino) {
-		if(this.buscarVino(vino.getId()) == null) {
+		if(this.buscarVino(vino.getId()) == null && this.datos_validos_init(vino)) {
 			return this.daoVino.addVino(vino);
 		}
 		return -1;
@@ -275,7 +275,24 @@ public class Vino implements SAVino{
 	}
 	
 	private boolean datos_validos_init(Vino vino){
+		if(vino.getYear() < 0 || vino.getYear() > Calendar.getInstance().get(Calendar.YEAR)) { 
+			//el annio no puede ser negativo ni mayor que el annio actual
+			return false;
+		}
+		if(vino.getRating() < 0 || vino.getRating() > 5) { 	//el rating no puede ser negativo ni mayor que 5
+			return false;
+		}
+		if(vino.getBody() < 0 || vino.getBody() > 5) {
+			return false;
+		}
+		if(vino.getAcidity() < 0 || vino.getAcidity() > 3) {
+			return false;
+		}
+		if(vino.getAlcohol_percentage() < 0 || vino.getUds_vino() < 0 || vino.getPrice() < 0 || vino.getNum_reviews() < 0
+				|| vino.getId() < 0) {
+			return false;
+		}
 		
-		return false;
+		return true;
 	}
 }
