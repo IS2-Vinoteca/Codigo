@@ -86,11 +86,69 @@ public class DAOImpVino implements DAOVino{
 		return vino_buscado;
 	}
 	
+	@SuppressWarnings("null")
 	@Override
-	public int addVino(Vino vino) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public int addVino(Vino vino) {
+		
+        int idGenerado = -1; // Valor por defecto si el vino ya existe
+        Connection conexion = null;
+        PreparedStatement consulta = null;
+        Vino vinoBuscado = buscarVino(vino.getId());
+
+        try {
+            conexion = dbConnection.getConnection();
+
+            // Verificar si el vino ya existe en la base de datos
+            if (vinoBuscado != null) {
+                // Preparar la consulta SQL para insertar un nuevo vino
+                String sql = "INSERT INTO vinos (winery, wine, year, rating, num_reviews, num_reviews_grp, region, price, "
+                        + "type, body, acidity, acidity_level, category, alcohol_percentage, uds_vino, description) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+                consulta.setString(1, vino.getWinery());
+                consulta.setString(2, vino.getWine());
+                consulta.setInt(3, vino.getYear());
+                consulta.setDouble(4, vino.getRating());
+                consulta.setInt(5, vino.getNum_reviews());
+                consulta.setString(6, vino.getNum_reviews_grp());
+                consulta.setString(7, vino.getRegion());
+                consulta.setDouble(8, vino.getPrice());
+                consulta.setString(9, vino.getType());
+                consulta.setInt(10, vino.getBody());
+                consulta.setInt(11, vino.getAcidity());
+                consulta.setString(12, vino.getAcidity_level());
+                consulta.setString(13, vino.getCategory());
+                consulta.setDouble(14, vino.getAlcohol_percentage());
+                consulta.setInt(15, vino.getUds_vino());
+                consulta.setString(16, vino.getDescription());
+
+                int filasInsertadas = consulta.executeUpdate();
+
+                if (filasInsertadas > 0) {
+                    // Obtener el ID generado para el nuevo vino
+                    var generatedKeys = consulta.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        idGenerado = generatedKeys.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (consulta != null)
+                    consulta.close();
+                if (conexion != null)
+                    conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return idGenerado;
+    }
+
 
 	@Override
 	public void actualizarVino(Vino vino) {
@@ -141,8 +199,27 @@ public class DAOImpVino implements DAOVino{
 
 	@Override
 	public void eliminarVino(Vino vino) {
-		// TODO Auto-generated method stub
 		
+		Connection conexion = dbConnection.getConnection();
+        PreparedStatement consulta = null;
+
+        try {
+            String sql = "DELETE FROM vinos WHERE id=?";
+            consulta = conexion.prepareStatement(sql);
+            consulta.setInt(1, vino.getId());
+            consulta.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (consulta != null)
+                    consulta.close();
+                if (conexion != null)
+                    conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 
 	@Override
