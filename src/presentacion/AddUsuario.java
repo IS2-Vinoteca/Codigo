@@ -1,6 +1,9 @@
 package presentacion;
 
 import javax.swing.*;
+
+import negocio.TUsuario;
+
 import java.awt.*;
 
 public class AddUsuario extends JDialog {
@@ -60,9 +63,19 @@ public class AddUsuario extends JDialog {
             String email = empresaField.getText();
 
             // Lógica para agregar el usuario a la base de datos
-
-            JOptionPane.showMessageDialog(this, "El usuario ha sido añadido con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
+            
+            TUsuario usuario = new TUsuario(nif, nombre, email);
+            
+            if(usuario.addUsuario(usuario) != -1) {
+            	JOptionPane.showMessageDialog(this, "El usuario ha sido añadido con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
+            else {
+            	JOptionPane.showMessageDialog(this, "El usuario no ha sido añadido", "Error", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
+            	
+            
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un NIF válido", "Error", JOptionPane.ERROR_MESSAGE);
         }

@@ -53,6 +53,36 @@ public class MenuPrincipalAdm extends JFrame {
             }
         });
         mainPanel.add(new_usr);
+        
+        mainPanel.add(Box.createVerticalStrut(20));
+        
+        JButton Listado = new JButton("Listado Usuarios");
+        Listado.setAlignmentX(CENTER_ALIGNMENT);
+        Listado.setBackground(Color.GRAY); // Fondo blanco
+        Listado.setForeground(Color.WHITE); // Texto negro
+        Listado.setFont(new_usr.getFont().deriveFont(Font.BOLD)); // Texto en negrita
+        Listado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	abrirDialogoListado();
+            }
+        });
+        mainPanel.add(Listado);
+        
+        mainPanel.add(Box.createVerticalStrut(20));
+        
+        JButton consultaUsuario = new JButton("Consulta de Usuario");
+        consultaUsuario.setAlignmentX(CENTER_ALIGNMENT);
+        consultaUsuario.setBackground(Color.GRAY); // Fondo blanco
+        consultaUsuario.setForeground(Color.WHITE); // Texto negro
+        consultaUsuario.setFont(new_usr.getFont().deriveFont(Font.BOLD)); // Texto en negrita
+        consultaUsuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	abrirDialogoConsultaUsuario();
+            }
+        });
+        mainPanel.add(consultaUsuario);
            
         
 		pack() ;
@@ -63,6 +93,17 @@ public class MenuPrincipalAdm extends JFrame {
 	  private void abrirDialogoNuevoUsuario() {
 	    	AddUsuario nuevoUsuario = new AddUsuario(this);
 	        nuevoUsuario.setVisible(true);
+	    }
+	  
+	  //PRUEBAS
+	    private void abrirDialogoListado() {
+	    	AccionesUsuario pruebas = new AccionesUsuario(this, "");
+	    	pruebas.setVisible(true);
+	    }
+	    
+	    private void abrirDialogoConsultaUsuario() {
+	    	AccionesUsuario pruebas = new AccionesUsuario(this, "buscar");
+	    	pruebas.setVisible(true);
 	    }
     
 }
