@@ -32,6 +32,7 @@ public class Main {
 		control = new Controller(new MainWindow());
 		/*DBConnection dbConnection = new DBConnection();
 		dbConnection.executeQuery();*/
+		
 		 try {
 	            startGUIMode(control); // Llamamos al método startGUIMode() para iniciar la interfaz gráfica
 	        } catch (IOException e) {

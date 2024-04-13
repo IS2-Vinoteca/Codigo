@@ -11,7 +11,16 @@ public class Controller {
 		
 	}
 	
-	public void showMenuPrincipalWindow() {
-		new MenuPrincipalWindow(this);
+	public void showMenuPrincipalCliente() {
+		new MenuPrincipalCliente(this);
 	}
+	
+	public void showMenuPrincipalEmpleado() {
+		new MenuPrincipalEmpleado(this);
+	}
+	
+	public void showMenuPrincipalAdm() {
+		new MenuPrincipalAdm(this);
+	}
+	
 }
