@@ -21,9 +21,9 @@ public class AccionesUsuario extends JDialog {
 			super(parent, "buscar usuario", true);
 			
 			if(accion == "buscar")
-				buscar();
+				buscarUsuario();
 			else
-				initGUI();
+				listarUsuarios();
 			
 			pack();
 			setLocationRelativeTo(parent);
@@ -31,7 +31,7 @@ public class AccionesUsuario extends JDialog {
 
 		
 		//BUSCAR UN USUARIO POR NIF -> FUNCIONA
-		private void buscar() {
+		private void buscarUsuario() {
 		    JPanel panel = new JPanel(new GridLayout(4, 2, 5, 5));
 
 		    JLabel nombreLabel = new JLabel("NIF del usuario:");
@@ -75,7 +75,7 @@ public class AccionesUsuario extends JDialog {
 
 	//LISTAR TODOS LOS USUARIOS -> FUNCIONA
 
-		 private void initGUI() {
+		 private void listarUsuarios() {
 		        JPanel panel = new JPanel(new BorderLayout());
 
 		        // Crear tabla para mostrar usuarios

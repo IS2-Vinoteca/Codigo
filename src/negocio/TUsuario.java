@@ -1,10 +1,7 @@
 package negocio;
-import java.sql.*;
+
 import java.util.List;
-
-import ddbb.DBConnection; //ruta completa?
 import integracion.DAOImpUsuario;
-
 import java.io.Serializable;
 
 

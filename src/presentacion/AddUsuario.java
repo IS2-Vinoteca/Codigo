@@ -6,6 +6,8 @@ import negocio.TUsuario;
 
 import java.awt.*;
 
+
+//LO JUNTAMOS EN LA CLASE ACCIONESUSUARIO??
 public class AddUsuario extends JDialog {
 
 	private static final long serialVersionUID = 1L;
