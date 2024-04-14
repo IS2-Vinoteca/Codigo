@@ -394,16 +394,75 @@ public class DAOImpVino implements DAOVino{
 	}
 
 	@Override
-	public String realizarConsultaAlcohol(double alcohol_percentaje) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String realizarConsultaAlcohol(double alcohol_percentaje) {
 
-	@Override
-	public String realizarConsultaTaste(String taste) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		String resultados = "";
+	    Connection conexion = dbConnection.getConnection();
+	    PreparedStatement consulta = null;
+	    ResultSet resultado = null;
+
+        try {
+            String sql = "SELECT * FROM vinos WHERE alcohol_percentage = ?";
+            consulta = conexion.prepareStatement(sql);
+            consulta.setDouble(1, alcohol_percentaje);
+            resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+            	resultados += this.fillIn_ResultadoConsulta(resultado);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resultados = "Error al realizar la consulta: " + e.getMessage();
+        } finally {
+            try {
+                if (resultado != null)
+                    resultado.close();
+                if (consulta != null)
+                    consulta.close();
+                if (conexion != null)
+                    conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultados.toString();
+    }
+
+    @Override
+    public String realizarConsultaTaste(String taste) {
+    	String resultados = "";
+    	Connection conexion = dbConnection.getConnection();
+    	PreparedStatement consulta = null;
+    	ResultSet resultado = null;
+
+        try {
+            String sql = "SELECT * FROM vinos WHERE taste = ?";
+            consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, taste);
+            resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+            	resultados += this.fillIn_ResultadoConsulta(resultado);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resultados = "Error al realizar la consulta: " + e.getMessage();
+        } finally {
+            try {
+                if (resultado != null)
+                    resultado.close();
+                if (consulta != null)
+                    consulta.close();
+                if (conexion != null)
+                    conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultados.toString();
+    }
 	
 	private Vino fillIn_vino(ResultSet resultado) throws SQLException {
 		int id = resultado.getInt("id");

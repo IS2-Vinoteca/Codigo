@@ -55,141 +55,74 @@ public class Vino implements SAVino{
 	}
 	
 	
-	// Getters y Setters
+	//GETTERS
+	
 	public int getId() {
 		return id;  
 	}
 
-	public void setId(int id) {
-	    this.id = id;
-	    }
-
 	public String getWinery() {
 	    return winery;
 	}
-
-	public void setWinery(String winery) {
-	    this.winery = winery;
-	}
-
+	
 	public String getWine() {
 	    return wine;
 	}
-
-	public void setWine(String wine) {
-	    this.wine = wine;
-	}
-
+	
 	public int getYear() {
 	    return year;
 	}
-
-	public void setYear(int year) {
-	    this.year = year;
-	}
-
+	
 	public double getRating() {
 	    return rating;
 	}
-
-	public void setRating(double rating) {
-	    this.rating = rating;
-	}
-
+	
 	public int getNum_reviews() {
 	    return num_reviews;
 	}
-
-	public void setNum_reviews(int num_reviews) {
-	    this.num_reviews = num_reviews;
-	}
-
+	
 	public String getNum_reviews_grp() {
 	    return num_reviews_grp;
 	}
-
-	public void setNum_reviews_grp(String num_reviews_grp) {
-	    this.num_reviews_grp = num_reviews_grp;
-	}
-
+	
 	public String getRegion() {
 		return region;
 	}
-
-	public void setRegion(String region) {
-		this.region = region;
-	}
-
+	
 	public double getPrice() {
 		return price;
 	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
+	
 	public String getType() {
 		return type;
 	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
+	
 	public int getBody() {
 		return body;
 	}
-
-	public void setBody(int body) {
-		this.body = body;
-	}
-
+	
 	public int getAcidity() {
 		return acidity;
 	}
-
-	public void setAcidity(int acidity) {
-		this.acidity = acidity;
-	}
-
+	
 	public String getAcidity_level() {
 		return acidity_level;
 	}
-
-	public void setAcidity_level(String acidity_level) {
-		this.acidity_level = acidity_level;
-	}
-
+	
 	public String getCategory() {
 		return category;
 	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public double getAlcohol_percentage() {
-		return alcohol_percentage;
-	}
-
-	public void setAlcohol_percentage(double alcohol_percentage) {
-		this.alcohol_percentage = alcohol_percentage;
-	}
-
+	
 	public int getUds_vino() {
 		return uds_vino;
 	}
-
-	public void setUds_vino(int uds_vino) {
-		this.uds_vino = uds_vino;
+	
+	public double getAlcohol_percentage() {
+		return alcohol_percentage;
 	}
-
+	
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 	public String getTaste() {
@@ -198,6 +131,76 @@ public class Vino implements SAVino{
 	
 	public String getAccomp_meal() {
 		return this.accomp_meal;
+	}
+	
+	//SETTERS
+	
+	public void setId(int id) {
+	    this.id = id;
+	}
+
+	public void setWinery(String winery) {
+	    this.winery = winery;
+	}
+
+	public void setWine(String wine) {
+	    this.wine = wine;
+	}
+
+	public void setYear(int year) {
+	    this.year = year;
+	}
+
+	public void setRating(double rating) {
+	    this.rating = rating;
+	}
+
+	public void setNum_reviews(int num_reviews) {
+	    this.num_reviews = num_reviews;
+	}
+
+	public void setNum_reviews_grp(String num_reviews_grp) {
+	    this.num_reviews_grp = num_reviews_grp;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public void setBody(int body) {
+		this.body = body;
+	}
+
+	public void setAcidity(int acidity) {
+		this.acidity = acidity;
+	}
+
+	public void setAcidity_level(String acidity_level) {
+		this.acidity_level = acidity_level;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public void setAlcohol_percentage(double alcohol_percentage) {
+		this.alcohol_percentage = alcohol_percentage;
+	}
+
+	public void setUds_vino(int uds_vino) {
+		this.uds_vino = uds_vino;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}	
 	
 	//METODOS SOBREESCRITOS
@@ -264,14 +267,16 @@ public class Vino implements SAVino{
 	
 	@Override
 	public String realizarConsultaAlcohol(double alcohol_percentaje) {
-		// TODO Auto-generated method stub
-		return null;
+
+		if(alcohol_percentaje < 0) {
+			return null; // No se si deberia devolver un mensaje de error o null y que el mensaje se haga en presentacion
+		}
+		return this.daoVino.realizarConsultaAlcohol(alcohol_percentaje);
 	}
 	
 	@Override
 	public String realizarConsultaTaste(String taste) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.daoVino.realizarConsultaTaste(taste);
 	}
 	
 	private boolean datos_validos_init(Vino vino){
