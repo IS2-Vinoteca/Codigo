@@ -35,9 +35,9 @@ public class DAOImpUsuario implements DAOUsuario{
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } finally {
+            } /*finally {
                 dbConnection.desconectar();
-            }
+            }*/
         }
         return existe;
     }
@@ -108,20 +108,22 @@ public class DAOImpUsuario implements DAOUsuario{
 	}
 
 	@Override
-	public void eliminarUsuario(TUsuario usuario) {
+	public boolean eliminarUsuario(int nif) {
+	    boolean eliminado = false;
 	    Connection conexion = dbConnection.getConnection();
 	    if (conexion != null) {
 	        String query = "DELETE FROM usuarios WHERE nif = ?";
 	        try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
-	            pstmt.setInt(1, usuario.getNif()); // Suponiendo que getNif() devuelve el NIF del usuario como un int
+	            pstmt.setInt(1, nif);
 	            pstmt.executeUpdate();
-	            System.out.println("Usuario eliminado correctamente.");
+	            eliminado = true;
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        } finally {
 	            dbConnection.desconectar();
 	        }
 	    }
+	    return eliminado;
 	}
 
 

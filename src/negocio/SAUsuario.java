@@ -8,6 +8,6 @@ public interface SAUsuario {
 	public TUsuario buscarUsuario(int nif);
 	public int addUsuario(TUsuario usuario);
 	public void actualizarUsuario(TUsuario usuario);
-	public void eliminarUsuario(TUsuario usuario);
+	public boolean eliminarUsuario(int nif);
 	
 }

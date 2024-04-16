@@ -15,6 +15,7 @@ public interface DAOVino {
 	public String realizarConsultaBodega(String winery);
 	public String realizarConsultaYear(int year); //e
 	public String realizarConsultaPrecio(double price_min, double price_max); //e consulta de maximo y minimo del precio 
-	public String realizarConsultaAlcohol(double alcohol_percentaje); //k consulta del porcentaje de alcohol (Jspinner)
-	public String realizarConsultaTaste(String taste); //k consulta del sabor (comboBox)	
+	public String realizarConsultaAlcohol(double alcohol_percentaje); // (Jspinner)
+	public String realizarConsultaTaste(String taste); // (comboBox)	
 }
+

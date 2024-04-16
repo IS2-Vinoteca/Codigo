@@ -1,10 +1,7 @@
 package negocio;
-import java.sql.*;
+
 import java.util.List;
-
-import ddbb.DBConnection; //ruta completa?
 import integracion.DAOImpUsuario;
-
 import java.io.Serializable;
 
 
@@ -76,8 +73,11 @@ public class TUsuario implements Serializable, SAUsuario{
 		DAOImpUsuario daoimpusuario = new DAOImpUsuario();
 		if (daoimpusuario.existeUsuario(usuario.getNif()))
 			return -1;
-		else daoimpusuario.addUsuario(usuario);
-			return 0;
+		else 
+			return daoimpusuario.addUsuario(usuario);
+		
+		
+		
 	}
 	
 	@Override
@@ -86,9 +86,11 @@ public class TUsuario implements Serializable, SAUsuario{
 		daoimpusuario.actualizarUsuario(usuario);		
 	}
 	@Override
-	public void eliminarUsuario(TUsuario usuario) {
-		DAOImpUsuario daoimpusuario = new DAOImpUsuario();
-		daoimpusuario.eliminarUsuario(usuario);
+	public boolean eliminarUsuario(int nif) {
+	    boolean eliminado = false;
+	    DAOImpUsuario daoImpUsuario = new DAOImpUsuario();
+	    eliminado = daoImpUsuario.eliminarUsuario(nif);
+	    return eliminado;
 	}
 
 	
