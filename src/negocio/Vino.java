@@ -5,7 +5,7 @@ import java.util.List;
 
 import integracion.DAOImpVino;
 
-public class Vino implements SAVino{
+public class Vino implements SAVino, EmbotelladoEnhanced{
 
 	//ATRIBUTOS
 
