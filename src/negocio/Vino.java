@@ -307,4 +307,11 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+	@Override
+	public int getStatusValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
