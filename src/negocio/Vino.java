@@ -304,7 +304,7 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 
 	@Override
 	public double getPrecio() {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return price;
 	}
 }
