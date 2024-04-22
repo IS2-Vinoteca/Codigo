@@ -99,8 +99,8 @@ public class DAOImpVino implements DAOVino{
 
            // Preparar la consulta SQL para insertar un nuevo vino
            String sql = "INSERT INTO inventario (id, winery, wine, year, rating, num_reviews, num_reviews_grp, region, price, "
-                       + "type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                       + "type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description, catalogo) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
            consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
            consulta.setInt(1, vino.getId()); 
 	       consulta.setString(2, vino.getWinery());
@@ -121,7 +121,8 @@ public class DAOImpVino implements DAOVino{
            consulta.setDouble(17, vino.getAlcohol_percentage());
            consulta.setInt(18, vino.getUds_vino());
            consulta.setString(19, vino.getDescription());
-	        consulta.executeUpdate();
+           consulta.setInt(20, vino.getCatalogo());
+	       consulta.executeUpdate();
 
            int filasInsertadas = consulta.executeUpdate();
 
@@ -158,7 +159,7 @@ public class DAOImpVino implements DAOVino{
 	        String sql = "UPDATE inventario SET winery = ?, wine = ?, year = ?, rating = ?, num_reviews = ?, "
 	        		+ "num_reviews_grp = ?, price = ?, region = ?, type = ?, body = ?, acidity = ?, "
 	        		+ "acidity_level = ?, taste = ?, accomp_meal = ?, category = ?, alcohol_percentage = ?, "
-	        		+ "uds_vino = ?, description = ? WHERE id = ?";
+	        		+ "uds_vino = ?, description = ?, catalogo = ? WHERE id = ?";
 	        consulta = conexion.prepareStatement(sql);
 	        
 	        consulta.setInt(19, vino.getId()); 
@@ -180,6 +181,7 @@ public class DAOImpVino implements DAOVino{
             consulta.setDouble(16, vino.getAlcohol_percentage());
             consulta.setInt(17, vino.getUds_vino());
             consulta.setString(18, vino.getDescription());
+            consulta.setInt(20, vino.getCatalogo());
 	        consulta.executeUpdate();
 
 	    } catch (SQLException e) {
@@ -463,6 +465,43 @@ public class DAOImpVino implements DAOVino{
 
         return resultados.toString();
     }
+    
+    public String realizarConsultaCatalogo() {
+        
+    	String resultados = "";
+        Connection conexion = null;
+        PreparedStatement consulta = null;
+        ResultSet resultado = null;
+
+        try {
+            conexion = dbConnection.getConnection();
+            String sql = "SELECT * FROM vinos WHERE catalogo = ?";
+            consulta = conexion.prepareStatement(sql);
+            consulta.setInt(1, 1); // Consulta vinos que tienen el atributo "catalogo" igual a 1
+            resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                resultados += fillIn_ResultadoConsulta(resultado);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resultados = "Error al realizar la consulta: " + e.getMessage();
+        } finally {
+            try {
+                if (resultado != null)
+                    resultado.close();
+                if (consulta != null)
+                    consulta.close();
+                if (conexion != null)
+                    conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return resultados;
+    }
+
 	
 	private Vino fillIn_vino(ResultSet resultado) throws SQLException {
 		int id = resultado.getInt("id");
@@ -484,9 +523,10 @@ public class DAOImpVino implements DAOVino{
         double alcohol_percentage = resultado.getDouble("alcohol_percentage");
         int uds_vino = resultado.getInt("uds_vino");
         String description = resultado.getString("description");
+        int catalogo = resultado.getInt("catalogo");
         
         return new Vino(id, winery, wine, year, rating, num_reviews, num_reviews_grp, price, region,
-                type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description);
+                type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description, catalogo);
 	}
 	
 	private String fillIn_ResultadoConsulta(ResultSet resultado) throws SQLException {

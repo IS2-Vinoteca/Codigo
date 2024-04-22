@@ -11,6 +11,7 @@ public interface DAOVino {
 	public int addVino(Vino vino);
 	public void actualizarVino(Vino vino);
 	public void eliminarVino(Vino vino);
+	public String realizarConsultaCatalogo();
 	public String realizarConsultaVino(String nombreVino);
 	public String realizarConsultaBodega(String winery);
 	public String realizarConsultaYear(int year); //e

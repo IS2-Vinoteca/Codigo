@@ -8,6 +8,7 @@ public interface SAVino {
 	public int addVino(Vino vino); //k 
 	public void actualizarVino(Vino vino); //e hecho
 	public void eliminarVino(Vino vino); //k hecho
+	public String realizarConsultaCatalogo();
 	public String realizarConsultaVino(String nombreVino); //hecho
 	public String realizarConsultaBodega(String winery);//e hecho
 	public String realizarConsultaYear(int year); //e hecho

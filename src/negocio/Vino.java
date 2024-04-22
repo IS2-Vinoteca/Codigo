@@ -29,10 +29,11 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 	private int uds_vino;
 	private String description;
 	private DAOImpVino daoVino;
+	private int catalogo;
 
 	public Vino(int id, String winery, String wine, int year, double rating, int num_reviews, String num_reviews_grp, double price, 
 			String region, String type, int body, int acidity, String acidity_level, String taste, String accomp_meal, String category, 
-			double alcohol_percentage, int uds_vino, String description) {		
+			double alcohol_percentage, int uds_vino, String description, int catalogo) {		
 		this.id = id;
 		this.winery = winery;
 		this.wine = wine;
@@ -50,6 +51,7 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
         this.alcohol_percentage = alcohol_percentage;
         this.uds_vino = uds_vino;
         this.description = description;
+        this.catalogo = catalogo;
         
         this.daoVino = new DAOImpVino();
 	}
@@ -133,6 +135,10 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 		return this.accomp_meal;
 	}
 	
+	public int getCatalogo() {
+		return this.catalogo;
+	}
+	
 	//SETTERS
 	
 	public void setId(int id) {
@@ -202,6 +208,10 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 	public void setDescription(String description) {
 		this.description = description;
 	}	
+	
+	public void setCatalogo(int catalogo) {
+		this.catalogo = catalogo;
+	}
 	
 	//METODOS SOBREESCRITOS
 	
@@ -301,10 +311,17 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 		return true;
 	}
 
+	@Override
+	public String realizarConsultaCatalogo() {
+		return this.daoVino.realizarConsultaCatalogo();
+	}
 
 	@Override
 	public double getPrecio() {
 		
 		return price;
 	}
+
+
+	
 }
