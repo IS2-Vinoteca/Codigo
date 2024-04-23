@@ -34,6 +34,7 @@ public class MenuPrincipalEmpleado extends JFrame {
         mainPanel.add(Box.createVerticalStrut(30));
 
         JLabel Menu = new JLabel("MENU PRINCIPAL EMPLEADOS");
+        
         Menu.setAlignmentX(CENTER_ALIGNMENT);
         Menu.setForeground(Color.WHITE);
         Menu.setOpaque(true);
@@ -43,9 +44,13 @@ public class MenuPrincipalEmpleado extends JFrame {
         Menu.setFont(new Font(Menu.getFont().getName(), Font.BOLD, 24));
         mainPanel.add(Menu);
 
+        mainPanel.add(Box.createVerticalStrut(30));
         // Botón para mostrar el listado de ventas
-        JButton btnListadoVentas = new JButton("Listado de Ventas");
-        btnListadoVentas.setAlignmentX(CENTER_ALIGNMENT);
+        JButton btnListadoVentas = new JButton("Listado de Ventas");        
+        btnListadoVentas.setAlignmentX(CENTER_ALIGNMENT) ;
+        btnListadoVentas.setBackground(Color.GRAY); // Fondo blanco
+        btnListadoVentas.setForeground(Color.WHITE); // Texto negro
+        btnListadoVentas.setFont(btnListadoVentas.getFont().deriveFont(Font.BOLD)); // Texto en negrita
         btnListadoVentas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,9 +61,15 @@ public class MenuPrincipalEmpleado extends JFrame {
         });
         mainPanel.add(btnListadoVentas);
 
+        mainPanel.add(Box.createVerticalStrut(30));
+        
         // Botón para mostrar el listado de incidencias
         JButton btnListadoIncidencias = new JButton("Listado de Incidencias");
-        btnListadoIncidencias.setAlignmentX(CENTER_ALIGNMENT);
+        btnListadoIncidencias.setAlignmentX(CENTER_ALIGNMENT) ;
+        btnListadoIncidencias.setBackground(Color.GRAY); // Fondo blanco
+        btnListadoIncidencias.setForeground(Color.WHITE); // Texto negro
+        btnListadoIncidencias.setFont(btnListadoVentas.getFont().deriveFont(Font.BOLD));
+        
         btnListadoIncidencias.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

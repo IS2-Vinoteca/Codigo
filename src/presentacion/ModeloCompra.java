@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -17,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+
+import negocio.Vino;
 
 public class ModeloCompra extends JFrame{
 
@@ -63,8 +66,10 @@ public class ModeloCompra extends JFrame{
 
         // Agregar pestañas para cada vino en el catálogo
         //chequear con el catalogo
+        Vino v = new Vino();
+        List<Vino> listaVinos = v.buscarVinos();
         for (int i = 1; i <= 9; i++) {
-            catalogPanel.add(createWineTab("Vino " + i, "Descripción del vino " + i));
+            catalogPanel.add(createWineTab("Vino " + listaVinos.get(i).getType(), "Descripción del vino " + listaVinos.get(i).getDescription()));
         }
         mainPanel.add(catalogPanel);
 
@@ -94,6 +99,7 @@ public class ModeloCompra extends JFrame{
 
     //  crear una pestaña de vino con título y descripción
     private JPanel createWineTab(String title, String description) {
+    	Vino vino = new Vino();
         JPanel tabPanel = new JPanel();
         tabPanel.setBackground(Color.GRAY); // Fondo gris
         tabPanel.setBorder(BorderFactory.createLineBorder(new Color(128, 0, 0), 1)); // Borde bordo
@@ -122,6 +128,7 @@ public class ModeloCompra extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Agregar lógica para agregar el vino al carrito
+            	String nombreVino;
             }
         });
 

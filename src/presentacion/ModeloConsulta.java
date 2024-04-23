@@ -2,6 +2,9 @@ package presentacion;
 
 import javax.swing.*;
 import integracion.DAOImpVino;
+import negocio.SAVino;
+import negocio.Vino;
+
 import java.awt.*;
 
 public class ModeloConsulta extends JDialog {
@@ -18,6 +21,7 @@ public class ModeloConsulta extends JDialog {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         setContentPane(mainPanel);
+        Vino savino = new Vino();
 
         JLabel lblNombreVino = new JLabel("Nombre del Vino:");
         JTextField txtNombreVino = new JTextField(20);
@@ -26,9 +30,8 @@ public class ModeloConsulta extends JDialog {
         txtAreaResultado.setEditable(false); // Hacer el área de texto de resultado no editable
 
         btnConsulta.addActionListener(e -> {
-            String nombreVino = txtNombreVino.getText();
-            DAOImpVino consultaVino = new DAOImpVino();
-            String resultado = consultaVino.realizarConsultaVino(nombreVino);
+            String nombreVino = txtNombreVino.getText();            
+            String resultado = savino.realizarConsultaVino(nombreVino);
             txtAreaResultado.setText(resultado);
         });
 

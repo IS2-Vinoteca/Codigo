@@ -30,6 +30,13 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 	private String description;
 	private DAOImpVino daoVino;
 	private int catalogo;
+	
+	//sin parametros
+	public Vino() {
+		// TODO Auto-generated constructor stub
+		this.daoVino = new DAOImpVino();
+	}
+
 
 	public Vino(int id, String winery, String wine, int year, double rating, int num_reviews, String num_reviews_grp, double price, 
 			String region, String type, int body, int acidity, String acidity_level, String taste, String accomp_meal, String category, 
@@ -59,6 +66,8 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 	
 	//GETTERS
 	
+	
+
 	public int getId() {
 		return id;  
 	}
