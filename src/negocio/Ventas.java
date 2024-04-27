@@ -125,4 +125,14 @@ public class Ventas implements SAVentas{
 		DAOImpVentas daoventas = new DAOImpVentas();
 		return daoventas.actualizarIncidencia(idVenta,incidencia, detalles);
 	}
+	
+	public boolean registrarVenta(Date fecha, String producto, int cantidad, double precio) {
+		DAOImpVentas daoventas = new DAOImpVentas();
+		return daoventas.registrarVenta(fecha, producto, cantidad, precio);
+	}
+	
+	
+	
+	
+	
 }

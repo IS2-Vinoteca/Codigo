@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ddbb.DBConnection;
@@ -122,6 +123,49 @@ public class DAOImpVentas implements DAOVentas{
 	    }
 	    return actualizado;
 	}
+	
+	
+	public boolean registrarVenta(Date fecha, String producto, int cantidad, double precio) {
+        boolean success = false;
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = dbConnection.getConnection();
+            String query = "INSERT INTO ventas (fecha, producto, cantidad, precio) VALUES (?, ?, ?, ?)";
+            ps = con.prepareStatement(query);
+            ps.setDate(1, new java.sql.Date(fecha.getTime()));
+            ps.setString(2, producto);
+            ps.setInt(3, cantidad);
+            ps.setDouble(4, precio);
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                success = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return success;
+    }
+
+
+	
+
+    // Otros métodos del DAO
+
 
 
 
