@@ -2,8 +2,9 @@ package presentacion;
 
 import javax.swing.*;
 import integracion.DAOImpVino;
+import negocio.SAImpVino;
 import negocio.SAVino;
-import negocio.Vino;
+import negocio.TransferVino;
 
 import java.awt.*;
 
@@ -21,7 +22,8 @@ public class ModeloConsulta extends JDialog {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         setContentPane(mainPanel);
-        Vino savino = new Vino();
+       
+        SAImpVino saImpVino = new SAImpVino();
 
         JLabel lblNombreVino = new JLabel("Nombre del Vino:");
         JTextField txtNombreVino = new JTextField(20);
@@ -31,7 +33,7 @@ public class ModeloConsulta extends JDialog {
 
         btnConsulta.addActionListener(e -> {
             String nombreVino = txtNombreVino.getText();            
-            String resultado = savino.realizarConsultaVino(nombreVino);
+            String resultado = saImpVino.realizarConsultaVino(nombreVino);
             txtAreaResultado.setText(resultado);
         });
 

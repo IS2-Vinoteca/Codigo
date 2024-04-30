@@ -9,8 +9,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import integracion.DAOImpVentas;
-import negocio.TUsuario;
-import negocio.Ventas;
+import negocio.SAImpVentas;
+import negocio.TransferUsuario;
+import negocio.TransferVentas;
 
 public class ModeloVenta extends JDialog{
 	
@@ -40,13 +41,13 @@ public class ModeloVenta extends JDialog{
 
 		    // Obtener la lista de incidencias
 		    // Aquí debes llamar al método del controlador para obtener la lista de incidencias
-		   Ventas incidencias = new Ventas();
-		    List<Ventas> listaIncidencias = incidencias.listadoIncidencias();
+		   SAImpVentas saImpVentas = new SAImpVentas(); 
+		   List<TransferVentas> listaIncidencias = saImpVentas.listadoIncidencias();
 
 		    // Verificar si la lista de incidencias es null
 		    if (listaIncidencias != null) {
 		        // Agregar cada incidencia a la tabla
-		        for (Ventas incidencia : listaIncidencias) {
+		        for (TransferVentas incidencia : listaIncidencias) {
 		            Object[] rowData = {incidencia.getId(), incidencia.getProducto(), incidencia.getFecha(), incidencia.getDetalles()};
 		            tableModel.addRow(rowData);
 		        }
@@ -77,13 +78,13 @@ public class ModeloVenta extends JDialog{
 
         // Obtener la lista de ventas
         // Aquí debes llamar al método del controlador para obtener la lista de ventas
-       Ventas ventas = new Ventas();
-       List<Ventas> listaventas = ventas.listadoVentas();
+       SAImpVentas saImpVentas = new SAImpVentas(); 
+       List<TransferVentas> listaventas = saImpVentas.listadoVentas();
 
         // Verificar si la lista de ventas es null
         if (listaventas != null) {
             // Agregar cada venta a la tabla
-            for (Ventas venta : listaventas) {
+            for (TransferVentas venta : listaventas) {
                 Object[] rowData = {venta.getId(), venta.getFecha(), venta.getProducto(), venta.getCantidad(), venta.getPrecio(), venta.getIncidencia()};
                 tableModel.addRow(rowData);
             }
@@ -102,9 +103,9 @@ public class ModeloVenta extends JDialog{
             if (selectedRow != -1) {
                 // Obtener el ID de la venta seleccionada
                 int idVenta = (int) tableModel.getValueAt(selectedRow, 0);
-                // Eliminar la venta de la base de datos
-                Ventas venta = new Ventas();
-                boolean eliminado = venta.eliminarVenta(idVenta);
+                // Eliminar la venta de la base de datos     
+                SAImpVentas impVentas = new SAImpVentas();   
+                boolean eliminado = impVentas.eliminarVenta(idVenta);
                 if (eliminado) {
                     JOptionPane.showMessageDialog(this, "Venta aceptada y eliminada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     // Actualizar la tabla después de eliminar la venta
@@ -134,8 +135,8 @@ public class ModeloVenta extends JDialog{
                     String detallesIncidencia = detallesField.getText();
                     
                     // Cambiar el estado de incidencia de la venta en la base de datos
-                    Ventas venta = new Ventas();
-                    boolean actualizado = venta.actualizarIncidencia(idVenta, "1", detallesIncidencia);
+                    SAImpVentas ventas = new SAImpVentas();                    
+                    boolean actualizado = ventas.actualizarIncidencia(idVenta, "1", detallesIncidencia);
                     if (actualizado) {
                         JOptionPane.showMessageDialog(dialog, "Incidencia generada para la venta seleccionada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                         dialog.dispose(); // Cerrar el diálogo después de confirmar

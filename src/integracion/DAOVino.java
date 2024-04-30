@@ -2,15 +2,15 @@ package integracion;
 
 import java.util.List;
 
-import negocio.Vino;
+import negocio.TransferVino;
 
 public interface DAOVino {
 
-	public List<Vino> buscarVinos();
-	public Vino buscarVino(int id);
-	public int addVino(Vino vino);
-	public void actualizarVino(Vino vino);
-	public void eliminarVino(Vino vino);
+	public List<TransferVino> buscarVinos();
+	public TransferVino buscarVino(int id);
+	public int addVino(TransferVino vino);
+	public void actualizarVino(TransferVino vino);
+	public void eliminarVino(TransferVino vino);
 	public String realizarConsultaCatalogo();
 	public String realizarConsultaVino(String nombreVino);
 	public String realizarConsultaBodega(String winery);

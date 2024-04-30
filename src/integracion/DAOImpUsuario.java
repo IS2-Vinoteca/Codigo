@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import ddbb.DBConnection;
-import negocio.TUsuario;
+import negocio.TransferUsuario;
 
 public class DAOImpUsuario implements DAOUsuario{
     
@@ -43,8 +43,8 @@ public class DAOImpUsuario implements DAOUsuario{
     }
 
 	
-    public List<TUsuario> buscarUsuarios() {
-        List<TUsuario> usuarios = new ArrayList<>();
+    public List<TransferUsuario> buscarUsuarios() {
+        List<TransferUsuario> usuarios = new ArrayList<>();
         Connection conexion = dbConnection.getConnection();
         
         if (conexion != null) {
@@ -52,7 +52,7 @@ public class DAOImpUsuario implements DAOUsuario{
             try (Statement stmt = conexion.createStatement();
                  ResultSet rs = stmt.executeQuery(query)) {
                 while (rs.next()) {
-                    TUsuario usuario = new TUsuario();
+                    TransferUsuario usuario = new TransferUsuario();
                     usuario.setNif(rs.getInt("nif"));
                     usuario.setNombre(rs.getString("nombre"));
                     usuario.setEmail(rs.getString("email"));
@@ -71,9 +71,9 @@ public class DAOImpUsuario implements DAOUsuario{
 
 
     @Override
-    public TUsuario buscarUsuario(int nif) { //ver por qué falla
+    public TransferUsuario buscarUsuario(int nif) { //ver por qué falla
         Connection conexion = dbConnection.getConnection();
-        TUsuario usuario = null;
+        TransferUsuario usuario = null;
         
         if (conexion != null) {
             String query = "SELECT * FROM usuarios WHERE nif = ?";
@@ -81,7 +81,7 @@ public class DAOImpUsuario implements DAOUsuario{
                 pstmt.setInt(1, nif);
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
-                        usuario = new TUsuario(rs.getInt("nif"), rs.getString("nombre"), rs.getString("email"));
+                        usuario = new TransferUsuario(rs.getInt("nif"), rs.getString("nombre"), rs.getString("email"));
                     }
                 }
             } catch (SQLException e) {
@@ -102,7 +102,7 @@ public class DAOImpUsuario implements DAOUsuario{
 
 
 	@Override
-	public void actualizarUsuario(TUsuario usuario) {
+	public void actualizarUsuario(TransferUsuario usuario) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -130,7 +130,7 @@ public class DAOImpUsuario implements DAOUsuario{
 
 
 	@Override
-	public int addUsuario(TUsuario usuario) {
+	public int addUsuario(TransferUsuario usuario) {
 		int filasAfectadas = -1; //devuelve -1 si no se ha añadido = ha fallado
         Connection conexion = dbConnection.getConnection();
         

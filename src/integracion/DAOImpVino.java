@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import ddbb.DBConnection;
-import negocio.Vino;
+import negocio.TransferVino;
 
 public class DAOImpVino implements DAOVino{
 	  
@@ -19,8 +19,8 @@ public class DAOImpVino implements DAOVino{
 	}
 	
 	@Override
-	public List<Vino> buscarVinos() {
-		List<Vino> vinos = new ArrayList<>();
+	public List<TransferVino> buscarVinos() {
+		List<TransferVino> vinos = new ArrayList<>();
 	    Connection conexion = dbConnection.getConnection();
 	    PreparedStatement consulta = null;
 	    ResultSet resultado = null;
@@ -31,7 +31,7 @@ public class DAOImpVino implements DAOVino{
 	        resultado = consulta.executeQuery();
 
 	        while (resultado.next()) {
-	            Vino vino = this.fillIn_vino(resultado);
+	            TransferVino vino = this.fillIn_vino(resultado);
 	            vinos.add(vino);
 	        }
 	    } catch (SQLException e) {
@@ -53,9 +53,9 @@ public class DAOImpVino implements DAOVino{
 	}
 
 	@Override
-	public Vino buscarVino(int id) {
+	public TransferVino buscarVino(int id) {
 		//String resultados = "";
-		Vino vino_buscado = null;
+		TransferVino vino_buscado = null;
 	    Connection conexion = dbConnection.getConnection();
 	    PreparedStatement consulta = null;
 	    ResultSet resultado = null;
@@ -88,7 +88,7 @@ public class DAOImpVino implements DAOVino{
 	
 	@SuppressWarnings("null") //TODO: si un valor es nulo y no queremos que salte error
 	@Override
-    public int addVino(Vino vino) {
+    public int addVino(TransferVino vino) {
 		
         int idGenerado = -1; // Valor por defecto si el vino ya existe
         Connection conexion = null;
@@ -151,7 +151,7 @@ public class DAOImpVino implements DAOVino{
 
 
 	@Override
-	public void actualizarVino(Vino vino) {
+	public void actualizarVino(TransferVino vino) {
 	    Connection conexion = dbConnection.getConnection();
 	    PreparedStatement consulta = null;
 
@@ -199,7 +199,7 @@ public class DAOImpVino implements DAOVino{
 	}
 
 	@Override
-	public void eliminarVino(Vino vino) {
+	public void eliminarVino(TransferVino vino) {
 		
 		Connection conexion = dbConnection.getConnection();
         PreparedStatement consulta = null;
@@ -503,7 +503,7 @@ public class DAOImpVino implements DAOVino{
     }
 
 	
-	private Vino fillIn_vino(ResultSet resultado) throws SQLException {
+	private TransferVino fillIn_vino(ResultSet resultado) throws SQLException {
 		int id = resultado.getInt("id");
         String winery = resultado.getString("winery");
         String wine = resultado.getString("wine");
@@ -525,7 +525,7 @@ public class DAOImpVino implements DAOVino{
         String description = resultado.getString("description");
         int catalogo = resultado.getInt("catalogo");
         
-        return new Vino(id, winery, wine, year, rating, num_reviews, num_reviews_grp, price, region,
+        return new TransferVino(id, winery, wine, year, rating, num_reviews, num_reviews_grp, price, region,
                 type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description, catalogo);
 	}
 	

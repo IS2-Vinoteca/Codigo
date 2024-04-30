@@ -3,11 +3,11 @@ package negocio;
 import java.util.List;
 
 public interface SAVino {
-	public List<Vino> buscarVinos(); //hecho
-	public Vino buscarVino(int id); //e hecho 
-	public int addVino(Vino vino); //k 
-	public void actualizarVino(Vino vino); //e hecho
-	public void eliminarVino(Vino vino); //k hecho
+	public List<TransferVino> buscarVinos(); //hecho
+	public TransferVino buscarVino(int id); //e hecho 
+	public int addVino(TransferVino vino); //k 
+	public void actualizarVino(TransferVino vino); //e hecho
+	public void eliminarVino(TransferVino vino); //k hecho
 	public String realizarConsultaCatalogo();
 	public String realizarConsultaVino(String nombreVino); //hecho
 	public String realizarConsultaBodega(String winery);//e hecho

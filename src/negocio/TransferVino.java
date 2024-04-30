@@ -5,7 +5,7 @@ import java.util.List;
 
 import integracion.DAOImpVino;
 
-public class Vino implements SAVino, EmbotelladoEnhanced{
+public class TransferVino implements EmbotelladoEnhanced{
 
 	//ATRIBUTOS
 
@@ -28,17 +28,17 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 	private double alcohol_percentage;
 	private int uds_vino;
 	private String description;
-	private DAOImpVino daoVino;
+	//private DAOImpVino daoVino;
 	private int catalogo;
 	
 	//sin parametros
-	public Vino() {
+	public TransferVino() {
 		// TODO Auto-generated constructor stub
-		this.daoVino = new DAOImpVino();
+		//this.daoVino = new DAOImpVino();
 	}
 
 
-	public Vino(int id, String winery, String wine, int year, double rating, int num_reviews, String num_reviews_grp, double price, 
+	public TransferVino(int id, String winery, String wine, int year, double rating, int num_reviews, String num_reviews_grp, double price, 
 			String region, String type, int body, int acidity, String acidity_level, String taste, String accomp_meal, String category, 
 			double alcohol_percentage, int uds_vino, String description, int catalogo) {		
 		this.id = id;
@@ -60,7 +60,7 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
         this.description = description;
         this.catalogo = catalogo;
         
-        this.daoVino = new DAOImpVino();
+       // this.daoVino = new DAOImpVino();
 	}
 	
 	
@@ -148,6 +148,11 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 		return this.catalogo;
 	}
 	
+	
+	public double getPrecio() {		
+		return price;
+	}
+	
 	//SETTERS
 	
 	public void setId(int id) {
@@ -224,18 +229,18 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 	
 	//METODOS SOBREESCRITOS
 	
-	@Override
-	public List<Vino> buscarVinos(){ //para la DAO
+	/*@Override
+	public List<TransferVino> buscarVinos(){ //para la DAO
 		return this.daoVino.buscarVinos();
 	}
 		
 	@Override
-	public Vino buscarVino(int id) {
+	public TransferVino buscarVino(int id) {
 		return this.daoVino.buscarVino(id);
 	}
 	
 	@Override
-	public int addVino(Vino vino) {
+	public int addVino(TransferVino vino) {
 		if(this.buscarVino(vino.getId()) == null && this.datos_validos_init(vino)) {
 			return this.daoVino.addVino(vino);
 		}
@@ -243,14 +248,14 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 	}
 	
 	@Override
-	public void actualizarVino(Vino vino) {
+	public void actualizarVino(TransferVino vino) {
 		if(this.buscarVino(vino.getId()) != null) { //actualizo el vino solo si el vino existe
 			this.daoVino.actualizarVino(vino);
 		}			
 	}
 	
 	@Override
-	public void eliminarVino(Vino vino) {
+	public void eliminarVino(TransferVino vino) {
 		if(this.buscarVino(vino.getId()) != null) { //elimino el vino solo si el vino existe
 			daoVino.eliminarVino(vino);
 		}
@@ -298,7 +303,7 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 		return this.daoVino.realizarConsultaTaste(taste);
 	}
 	
-	private boolean datos_validos_init(Vino vino){
+	private boolean datos_validos_init(TransferVino vino){
 		if(vino.getYear() < 0 || vino.getYear() > Calendar.getInstance().get(Calendar.YEAR)) { 
 			//el annio no puede ser negativo ni mayor que el annio actual
 			return false;
@@ -325,12 +330,8 @@ public class Vino implements SAVino, EmbotelladoEnhanced{
 		return this.daoVino.realizarConsultaCatalogo();
 	}
 
-	@Override
-	public double getPrecio() {
-		
-		return price;
-	}
-
+	
+*/
 
 	
 }

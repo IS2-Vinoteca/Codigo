@@ -24,24 +24,26 @@ import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
-import negocio.Ventas;
-import negocio.Vino;
+import negocio.SAImpVentas;
+import negocio.SAImpVino;
+import negocio.TransferVentas;
+import negocio.TransferVino;
 
 public class ModeloCompra extends JFrame{
 
 	private static final long serialVersionUID = 1L;
     //private JPanel mainPanel;
 //    private Controller controller;
-	private List<Vino> carritoCompras;
+	private List<TransferVino> carritoCompras;
 	private int cantidad;
-	private Ventas venta;
+	private TransferVentas venta;
 
     public ModeloCompra(JFrame parent) {
 		super();
 		initGUI();
 		//pack();
 		carritoCompras = new ArrayList<>();
-		venta = new Ventas();
+		venta = new TransferVentas();
 		setLocationRelativeTo(parent);
 	}
     private void initGUI() {
@@ -77,8 +79,9 @@ public class ModeloCompra extends JFrame{
 
         // Agregar pestañas para cada vino en el catálogo
         //chequear con el catalogo
-        Vino v = new Vino();
-        List<Vino> listaVinos = v.buscarVinos();
+        TransferVino v = new TransferVino();
+        SAImpVino saImpVino = new SAImpVino();
+        List<TransferVino> listaVinos = saImpVino.buscarVinos();
         System.out.println(listaVinos.toString());
         for (int i = 1; i <= 9; i++) {
         	//"Vino " + listaVinos.get(i).getType(), "Descripción del vino " + listaVinos.get(i).getDescription())
@@ -104,9 +107,10 @@ public class ModeloCompra extends JFrame{
                     JOptionPane.showMessageDialog(null, "El carrito de compras está vacío");
                 } else {
                     // Aquí mandamos los datos al SAVentas para gestionar la venta
-                    Ventas ventas = new Ventas();
-                    for (Vino vino : carritoCompras) {
-                        ventas.registrarVenta(new Date(), vino.getWine(), venta.getCantidad(), vino.getPrice());
+                    
+                    SAImpVentas saImpVentas = new SAImpVentas();
+                    for (TransferVino vino : carritoCompras) {
+                    	saImpVentas.registrarVenta(new Date(), vino.getWine(), venta.getCantidad(), vino.getPrice());
                     }
                     JOptionPane.showMessageDialog(null, "Compra realizada con éxito");
                     carritoCompras.clear(); // Limpiamos el carrito después de confirmar la compra
@@ -121,7 +125,7 @@ public class ModeloCompra extends JFrame{
     }
 
     //  crear una pestaña de vino con título y descripción
-    private JPanel createWineTab(Vino v) {
+    private JPanel createWineTab(TransferVino v) {
     	//Vino vino = new Vino();
     	
         JPanel tabPanel = new JPanel();

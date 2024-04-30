@@ -8,7 +8,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import integracion.DAOImpUsuario;
-import negocio.TUsuario;
+import negocio.SAImpUsuario;
+import negocio.TransferUsuario;
 
 
 public class AccionesUsuario extends JDialog {
@@ -47,8 +48,11 @@ public class AccionesUsuario extends JDialog {
 		        try {
 		            int nif = Integer.parseInt(nifText);
 		            	           
-		            TUsuario user = new TUsuario();
-		            user = user.buscarUsuario(nif);
+		           
+		            TransferUsuario user = new TransferUsuario();
+		            SAImpUsuario saImpUsuario = new SAImpUsuario(user);
+		            user = saImpUsuario.buscarUsuario(nif);
+
 		            
 		            if (user != null) {
 		                JOptionPane.showMessageDialog(null, "El usuario existe:\n" + user.toString(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -87,13 +91,14 @@ public class AccionesUsuario extends JDialog {
 		        JScrollPane scrollPane = new JScrollPane(table);
 
 		        // Obtener la lista de usuarios
-		        TUsuario user = new TUsuario();
-		        List<TUsuario> lista_usuarios = user.buscarUsuarios();
+		        TransferUsuario user = new TransferUsuario();
+		        SAImpUsuario saImpUsuario = new SAImpUsuario(user);
+		        List<TransferUsuario> lista_usuarios = saImpUsuario.buscarUsuarios();
 
 		        // Verificar si la lista de usuarios es null
 		        if (lista_usuarios != null) {
 		            // Agregar cada usuario a la tabla
-		            for (TUsuario usuario : lista_usuarios) {
+		            for (TransferUsuario usuario : lista_usuarios) {
 		                Object[] rowData = {usuario.getNif(), usuario.getNombre(), usuario.getEmail()};
 		                tableModel.addRow(rowData);
 		            }
@@ -113,8 +118,9 @@ public class AccionesUsuario extends JDialog {
 		                // Obtener el ID del usuario seleccionado
 		                int id = (int) tableModel.getValueAt(selectedRow, 0);
 		                // Llamar al método para eliminar el usuario
-		                TUsuario usuario = new TUsuario();
-		                boolean eliminado = usuario.eliminarUsuario(id);
+		                TransferUsuario usuario = new TransferUsuario();
+		                SAImpUsuario saImpUser = new SAImpUsuario(user);
+		                boolean eliminado = saImpUser.eliminarUsuario(id);
 		                if (eliminado) {
 		                    JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 		                    // Actualizar la tabla después de eliminar el usuario

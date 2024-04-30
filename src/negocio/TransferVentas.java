@@ -1,11 +1,12 @@
 package negocio;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import integracion.DAOImpVentas;
 
-public class Ventas implements SAVentas{
+public class TransferVentas implements Serializable{
     private int id;
     private Date fecha;
     private String producto;
@@ -17,10 +18,10 @@ public class Ventas implements SAVentas{
 	
     // Constructor
 	
-	public Ventas() {
+	public TransferVentas() {
 		
 	}
-    public Ventas(int id, Date fecha, String producto, int cantidad, double precio, String incidencia, String detalles) {
+    public TransferVentas(int id, Date fecha, String producto, int cantidad, double precio, String incidencia, String detalles) {
         this.id = id;
         this.fecha = fecha;
         this.producto = producto;
@@ -90,7 +91,7 @@ public class Ventas implements SAVentas{
     }
 
     // Método toString para representación de cadena
-    @Override
+   
     public String toString() {
         return "Ventas{" +
                 "id=" + id +
@@ -101,36 +102,8 @@ public class Ventas implements SAVentas{
                 ", incidencia='" + incidencia + '\'' +
                 '}';
     }
-
-	@Override
-	public List<Ventas> listadoVentas() {
-		// TODO Auto-generated method stub
-		DAOImpVentas daoventas = new DAOImpVentas();
-		return daoventas.listadoVentas();
-	}
-
-	@Override
-	public List<Ventas> listadoIncidencias() {
-		// TODO Auto-generated method stub
-		DAOImpVentas daoventas = new DAOImpVentas();
-		return daoventas.listadoIncidencias();
-	}
-	@Override
-	public boolean eliminarVenta(int idVenta) {
-		// TODO Auto-generated method stub
-		DAOImpVentas daoventas = new DAOImpVentas();
-		return daoventas.eliminarVenta(idVenta);
-	}
-	public boolean actualizarIncidencia(int idVenta, String estado, String detalles) {
-		DAOImpVentas daoventas = new DAOImpVentas();
-		return daoventas.actualizarIncidencia(idVenta,incidencia, detalles);
-	}
 	
-	public boolean registrarVenta(Date fecha, String producto, int cantidad, double precio) {
-		DAOImpVentas daoventas = new DAOImpVentas();
-		return daoventas.registrarVenta(fecha, producto, cantidad, precio);
-	}
-	
+
 	
 	
 	

@@ -10,8 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 import ddbb.DBConnection;
-import negocio.TUsuario;
-import negocio.Ventas;
+import negocio.TransferUsuario;
+import negocio.TransferVentas;
 
 public class DAOImpVentas implements DAOVentas{
 
@@ -23,8 +23,8 @@ public class DAOImpVentas implements DAOVentas{
 
 	
 	@Override
-	   public List<Ventas> listadoVentas() {
-        List<Ventas> ventas = new ArrayList<>();
+	   public List<TransferVentas> listadoVentas() {
+        List<TransferVentas> ventas = new ArrayList<>();
         Connection conexion = dbConnection.getConnection();
         
         if (conexion != null) {
@@ -32,7 +32,7 @@ public class DAOImpVentas implements DAOVentas{
             try (Statement stmt = conexion.createStatement();
                  ResultSet rs = stmt.executeQuery(query)) {
                 while (rs.next()) {
-                    Ventas venta = new Ventas();
+                    TransferVentas venta = new TransferVentas();
                     venta.setId(rs.getInt("id"));
                     venta.setFecha(rs.getDate("fecha"));
                     venta.setProducto(rs.getString("producto"));
@@ -52,8 +52,8 @@ public class DAOImpVentas implements DAOVentas{
         return ventas;
     }
 	@Override
-	public List<Ventas> listadoIncidencias() {
-	    List<Ventas> ventasConIncidencias = new ArrayList<>();
+	public List<TransferVentas> listadoIncidencias() {
+	    List<TransferVentas> ventasConIncidencias = new ArrayList<>();
 	    Connection conexion = dbConnection.getConnection();
 	    
 	    if (conexion != null) {
@@ -61,7 +61,7 @@ public class DAOImpVentas implements DAOVentas{
 	        try (Statement stmt = conexion.createStatement();
 	             ResultSet rs = stmt.executeQuery(query)) {
 	            while (rs.next()) {
-	                Ventas venta = new Ventas();
+	                TransferVentas venta = new TransferVentas();
 	                venta.setId(rs.getInt("id"));
 	                venta.setFecha(rs.getDate("fecha"));
 	                venta.setProducto(rs.getString("producto"));

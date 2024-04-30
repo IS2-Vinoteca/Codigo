@@ -2,15 +2,15 @@ package integracion;
 
 import java.util.List;
 
-import negocio.TUsuario;
+import negocio.TransferUsuario;
 
 public interface DAOUsuario {
 
-	public List<TUsuario> buscarUsuarios(); //SI funciona 
-	public TUsuario buscarUsuario(int nif); //SI funciona
+	public List<TransferUsuario> buscarUsuarios(); //SI funciona 
+	public TransferUsuario buscarUsuario(int nif); //SI funciona
 	public boolean existeUsuario(int nif); //SI funciona
-	public int addUsuario(TUsuario usuario); //SI funciona
-	public void actualizarUsuario(TUsuario usuario); //falta
+	public int addUsuario(TransferUsuario usuario); //SI funciona
+	public void actualizarUsuario(TransferUsuario usuario); //falta
 	public boolean eliminarUsuario(int nif); //SI funciona
 
 }
