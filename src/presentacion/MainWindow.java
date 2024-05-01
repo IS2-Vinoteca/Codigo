@@ -86,7 +86,6 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	controller.showMenuPrincipalCliente();
-            	MainWindow.this.setVisible(false);
             }
         });
 		
@@ -94,7 +93,6 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	controller.showMenuPrincipalEmpleado();
-            	MainWindow.this.setVisible(false);
             }
         });
 		
@@ -102,7 +100,6 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	controller.showMenuPrincipalAdm();
-            	MainWindow.this.setVisible(false);
             }
         });
 		

@@ -19,9 +19,7 @@ public class ModeloConsulta extends JDialog {
     private void initGUI() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setContentPane(mainPanel);
-        
        
         SAImpVino saImpVino = new SAImpVino();
 
@@ -36,29 +34,15 @@ public class ModeloConsulta extends JDialog {
             String resultado = saImpVino.realizarConsultaVino(nombreVino);
             txtAreaResultado.setText(resultado);
         });
-        
-     //   mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Crear un panel para los controles y establecer espacios entre ellos
         JPanel controlPanel = new JPanel(new GridLayout(2, 1, 0, 10));
         controlPanel.add(lblNombreVino);
-        controlPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         controlPanel.add(txtNombreVino);
 
         mainPanel.add(controlPanel);
         mainPanel.add(btnConsulta);
         mainPanel.add(new JScrollPane(txtAreaResultado));
-        
-        JPanel btnPanel = new JPanel();
-        btnPanel.add(btnConsulta);
-
-        JPanel resultPanel = new JPanel();
-        resultPanel.add(new JScrollPane(txtAreaResultado));
-
-        mainPanel.add(controlPanel, BorderLayout.NORTH);
-        mainPanel.add(btnPanel, BorderLayout.CENTER);
-        mainPanel.add(resultPanel, BorderLayout.SOUTH);
-
 
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Cambio aquí
         setPreferredSize(new Dimension(400, 300));
