@@ -13,12 +13,15 @@ import negocio.TransferUsuario;
 
 public class AccionesUsuario extends JDialog {
 
-		private JTextField idField;
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private JTextField nifField;
 		//private JTextField empresaField;
 
 		public AccionesUsuario(JFrame parent, String accion) {
-			super(parent, "buscar usuario", true);
+			super(parent, "Gestion de usuario", true);
 			
 			if(accion == "buscar")
 				buscarUsuario();
@@ -33,9 +36,10 @@ public class AccionesUsuario extends JDialog {
 		//BUSCAR UN USUARIO POR NIF -> FUNCIONA
 		private void buscarUsuario() {
 		    JPanel panel = new JPanel(new GridLayout(4, 2, 5, 5));
+		    panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 		    JLabel nombreLabel = new JLabel("NIF del usuario:");
-		    nifField = new JTextField();
+		    nifField = new JTextField(20);
 
 		    panel.add(nombreLabel);
 		    panel.add(nifField);
@@ -80,7 +84,8 @@ public class AccionesUsuario extends JDialog {
 
 		 private void listarUsuarios() {
 		        JPanel panel = new JPanel(new BorderLayout());
-
+		        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		        
 		        // Crear tabla para mostrar usuarios
 		        String[] columnNames = {"NIF", "Nombre", "Email"};
 		        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
