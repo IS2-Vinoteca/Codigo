@@ -61,7 +61,7 @@ public class MenuPrincipalEmpleado extends JFrame {
         });
         mainPanel.add(btnListadoVentas);
 
-        mainPanel.add(Box.createVerticalStrut(30));
+        mainPanel.add(Box.createVerticalStrut(20));
         
         // Botón para mostrar el listado de incidencias
         JButton btnListadoIncidencias = new JButton("Listado de Incidencias");
@@ -79,6 +79,23 @@ public class MenuPrincipalEmpleado extends JFrame {
             }
         });
         mainPanel.add(btnListadoIncidencias);
+        
+        mainPanel.add(Box.createVerticalStrut(20));
+        
+        JButton main = new JButton("Menu principal");
+        main.setAlignmentX(CENTER_ALIGNMENT);
+        main.setBackground(Color.GRAY); // Fondo blanco
+        main.setForeground(Color.WHITE); // Texto negro
+        main.setFont(btnListadoVentas.getFont().deriveFont(Font.BOLD)); // Texto en negrita
+        main.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	 MainWindow mainWindow = new MainWindow();
+                 mainWindow.setVisible(true);
+                 setVisible(false);
+            }
+        });
+        mainPanel.add(main);
         
         
 
