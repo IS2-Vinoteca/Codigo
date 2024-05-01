@@ -44,11 +44,6 @@ public class SAImpUsuario implements SAUsuario{
 	}
 	
 	@Override
-	public void actualizarUsuario(TransferUsuario usuario) {
-		DAOImpUsuario daoimpusuario = new DAOImpUsuario();
-		daoimpusuario.actualizarUsuario(usuario);		
-	}
-	@Override
 	public boolean eliminarUsuario(int nif) {
 	    boolean eliminado = false;
 	    DAOImpUsuario daoImpUsuario = new DAOImpUsuario();
