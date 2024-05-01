@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 
 import ddbb.DBConnection;
-import negocio.TransferUsuario;
 import negocio.TransferVentas;
 
 public class DAOImpVentas implements DAOVentas{

@@ -2,10 +2,8 @@ package presentacion;
 
 import java.io.IOException;
 
-
 import javax.swing.SwingUtilities;
 
-import ddbb.DBConnection;
 
 public class Main {
 	
