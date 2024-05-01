@@ -8,10 +8,10 @@ public class SAImpUsuario implements SAUsuario{
 	
 	private TransferUsuario TUsuario;
 	
-	public SAImpUsuario (TransferUsuario TUsuario) {
-		
-		this.TUsuario = TUsuario;
-		
+	public SAImpUsuario() {}
+
+	public SAImpUsuario(TransferUsuario TUsuario) {
+		this.TUsuario = TUsuario;	
 	}
 	
 	@Override
