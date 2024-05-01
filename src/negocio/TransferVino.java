@@ -1,10 +1,5 @@
 package negocio;
 
-import java.util.Calendar;
-import java.util.List;
-
-import integracion.DAOImpVino;
-
 public class TransferVino implements EmbotelladoEnhanced{
 
 	//ATRIBUTOS

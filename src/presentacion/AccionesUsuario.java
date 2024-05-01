@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import integracion.DAOImpUsuario;
 import negocio.SAImpUsuario;
 import negocio.TransferUsuario;
 

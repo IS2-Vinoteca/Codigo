@@ -2,9 +2,7 @@ package negocio;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import integracion.DAOImpVentas;
 
 public class TransferVentas implements Serializable{
     private int id;

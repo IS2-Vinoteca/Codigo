@@ -1,10 +1,8 @@
 package presentacion;
 
 import javax.swing.*;
-import integracion.DAOImpVino;
 import negocio.SAImpVino;
-import negocio.SAVino;
-import negocio.TransferVino;
+
 
 import java.awt.*;
 
