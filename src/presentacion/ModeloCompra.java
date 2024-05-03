@@ -18,6 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,10 +29,13 @@ import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
+import negocio.CartonDecorator;
+import negocio.MaderaDecorator;
 import negocio.SAImpVentas;
 import negocio.SAImpVino;
 import negocio.TransferVentas;
 import negocio.TransferVino;
+import negocio.VidrioDecorator;
 
 public class ModeloCompra extends JFrame {
 
@@ -137,11 +141,13 @@ public class ModeloCompra extends JFrame {
         //tamaño de los cuadritos
         tabPanel.setPreferredSize(new Dimension(180, 160)); // Ajusta el tamaño del panel del vino
 
+        
         JLabel titleLabel = new JLabel(v.getWine(), SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         titleLabel.setForeground(Color.WHITE);
         tabPanel.add(titleLabel, BorderLayout.NORTH);
 
+        
         JTextArea descriptionArea = new JTextArea(v.getDescription());
         descriptionArea.setEditable(false);
         descriptionArea.setLineWrap(true);
@@ -155,6 +161,34 @@ public class ModeloCompra extends JFrame {
 
         JSpinner spinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1)); //para que agregue la cantidad de vinos de un tipo
         buttonPanel.add(spinner);
+        
+        JLabel precio = new JLabel(v.getPrice()+ "");
+        buttonPanel.add(precio, BorderLayout.WEST);
+        
+        JComboBox<String> embotellado = new JComboBox<>(new String[] {"Normal", "Carton", "Madera", "Vidrio"});
+        buttonPanel.add(embotellado, BorderLayout.EAST);
+        embotellado.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = (String) embotellado.getSelectedItem();
+                int cantidad = (int)spinner.getValue();
+                switch (selected) {
+                case "Carton":
+                	precio.setText(new CartonDecorator(v).getPrecio() * cantidad +"");
+                	break;
+                case "Madera":
+                	precio.setText(new MaderaDecorator(v).getPrecio() * cantidad+"");
+                	break;
+                case "Vidrio":
+                	precio.setText(new VidrioDecorator(v).getPrecio() * cantidad+"");
+                	break;
+                default:
+                	precio.setText(v.getPrecio() * cantidad +"");
+                }
+            }
+        });
+        
+        
 
         JButton addButton = new JButton("Agregar al Carrito");
         addButton.setBackground(new Color(128, 0, 0));
@@ -168,11 +202,19 @@ public class ModeloCompra extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int cantidad = (int) spinner.getValue();
+                String price = precio.getText();
+                double precio = Double.parseDouble(price);
+                venta.setPrecio(precio);
                 venta.setCantidad(cantidad); //se lo mandamos a la clase ventas
+                venta.setIncidencia("0");
                 carritoCompras.add(v); 
             }
         });
 
         return tabPanel;
     }
+    
+    
+    
+    
 }
