@@ -6,11 +6,10 @@ import negocio.TransferUsuario;
 
 public interface DAOUsuario {
 
-	public List<TransferUsuario> buscarUsuarios(); //SI funciona 
-	public TransferUsuario buscarUsuario(int nif); //SI funciona
-	public boolean existeUsuario(int nif); //SI funciona
-	public int addUsuario(TransferUsuario usuario); //SI funciona
-	public void actualizarUsuario(TransferUsuario usuario); //falta
-	public boolean eliminarUsuario(int nif); //SI funciona
+	public List<TransferUsuario> buscarUsuarios();
+	public TransferUsuario buscarUsuario(int nif);
+	public boolean existeUsuario(int nif);
+	public int addUsuario(TransferUsuario usuario);
+	public boolean eliminarUsuario(int nif);
 
 }

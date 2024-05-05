@@ -8,10 +8,10 @@ public class SAImpUsuario implements SAUsuario{
 	
 	private TransferUsuario TUsuario;
 	
-	public SAImpUsuario (TransferUsuario TUsuario) {
-		
-		this.TUsuario = TUsuario;
-		
+	public SAImpUsuario() {}
+
+	public SAImpUsuario(TransferUsuario TUsuario) {
+		this.TUsuario = TUsuario;	
 	}
 	
 	@Override
@@ -43,11 +43,6 @@ public class SAImpUsuario implements SAUsuario{
 		
 	}
 	
-	@Override
-	public void actualizarUsuario(TransferUsuario usuario) {
-		DAOImpUsuario daoimpusuario = new DAOImpUsuario();
-		daoimpusuario.actualizarUsuario(usuario);		
-	}
 	@Override
 	public boolean eliminarUsuario(int nif) {
 	    boolean eliminado = false;

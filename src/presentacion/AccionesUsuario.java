@@ -7,19 +7,21 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import integracion.DAOImpUsuario;
 import negocio.SAImpUsuario;
 import negocio.TransferUsuario;
 
 
 public class AccionesUsuario extends JDialog {
 
-		private JTextField idField;
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private JTextField nifField;
 		//private JTextField empresaField;
 
 		public AccionesUsuario(JFrame parent, String accion) {
-			super(parent, "buscar usuario", true);
+			super(parent, "Gestion de usuario", true);
 			
 			if(accion == "buscar")
 				buscarUsuario();
@@ -34,9 +36,10 @@ public class AccionesUsuario extends JDialog {
 		//BUSCAR UN USUARIO POR NIF -> FUNCIONA
 		private void buscarUsuario() {
 		    JPanel panel = new JPanel(new GridLayout(4, 2, 5, 5));
+		    panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 		    JLabel nombreLabel = new JLabel("NIF del usuario:");
-		    nifField = new JTextField();
+		    nifField = new JTextField(20);
 
 		    panel.add(nombreLabel);
 		    panel.add(nifField);
@@ -50,7 +53,7 @@ public class AccionesUsuario extends JDialog {
 		            	           
 		           
 		            TransferUsuario user = new TransferUsuario();
-		            SAImpUsuario saImpUsuario = new SAImpUsuario(user);
+		            SAImpUsuario saImpUsuario = new SAImpUsuario();
 		            user = saImpUsuario.buscarUsuario(nif);
 
 		            
@@ -81,7 +84,8 @@ public class AccionesUsuario extends JDialog {
 
 		 private void listarUsuarios() {
 		        JPanel panel = new JPanel(new BorderLayout());
-
+		        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		        
 		        // Crear tabla para mostrar usuarios
 		        String[] columnNames = {"NIF", "Nombre", "Email"};
 		        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -91,8 +95,7 @@ public class AccionesUsuario extends JDialog {
 		        JScrollPane scrollPane = new JScrollPane(table);
 
 		        // Obtener la lista de usuarios
-		        TransferUsuario user = new TransferUsuario();
-		        SAImpUsuario saImpUsuario = new SAImpUsuario(user);
+		        SAImpUsuario saImpUsuario = new SAImpUsuario();
 		        List<TransferUsuario> lista_usuarios = saImpUsuario.buscarUsuarios();
 
 		        // Verificar si la lista de usuarios es null
@@ -118,8 +121,7 @@ public class AccionesUsuario extends JDialog {
 		                // Obtener el ID del usuario seleccionado
 		                int id = (int) tableModel.getValueAt(selectedRow, 0);
 		                // Llamar al método para eliminar el usuario
-		                TransferUsuario usuario = new TransferUsuario();
-		                SAImpUsuario saImpUser = new SAImpUsuario(user);
+		                SAImpUsuario saImpUser = new SAImpUsuario();
 		                boolean eliminado = saImpUser.eliminarUsuario(id);
 		                if (eliminado) {
 		                    JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);

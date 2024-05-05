@@ -100,13 +100,6 @@ public class DAOImpUsuario implements DAOUsuario{
     }
 
 
-
-	@Override
-	public void actualizarUsuario(TransferUsuario usuario) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public boolean eliminarUsuario(int nif) {
 	    boolean eliminado = false;
@@ -125,8 +118,6 @@ public class DAOImpUsuario implements DAOUsuario{
 	    }
 	    return eliminado;
 	}
-
-
 
 
 	@Override

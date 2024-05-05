@@ -7,7 +7,6 @@ public interface SAUsuario {
 	public List<TransferUsuario> buscarUsuarios();
 	public TransferUsuario buscarUsuario(int nif);
 	public int addUsuario(TransferUsuario usuario);
-	public void actualizarUsuario(TransferUsuario usuario);
 	public boolean eliminarUsuario(int nif);
 	
 }

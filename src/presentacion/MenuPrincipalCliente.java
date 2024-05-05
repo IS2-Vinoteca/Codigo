@@ -66,6 +66,24 @@ public class MenuPrincipalCliente extends JFrame{
         });
         mainPanel.add(comprar_vinos);
         
+
+        mainPanel.add(Box.createVerticalStrut(20));
+        
+        JButton main = new JButton("Menu principal");
+        main.setAlignmentX(CENTER_ALIGNMENT);
+        main.setBackground(Color.GRAY); // Fondo blanco
+        main.setForeground(Color.WHITE); // Texto negro
+        main.setFont(comprar_vinos.getFont().deriveFont(Font.BOLD)); // Texto en negrita
+        main.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	 MainWindow mainWindow = new MainWindow();
+                 mainWindow.setVisible(true);
+                 setVisible(false);
+            }
+        });
+        mainPanel.add(main);
+        
 		pack() ;
 		setLocationRelativeTo(null) ; 
 		setVisible(true) ; 

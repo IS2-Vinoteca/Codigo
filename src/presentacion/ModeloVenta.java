@@ -2,15 +2,12 @@ package presentacion;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import integracion.DAOImpVentas;
 import negocio.SAImpVentas;
-import negocio.TransferUsuario;
 import negocio.TransferVentas;
 
 public class ModeloVenta extends JDialog{
