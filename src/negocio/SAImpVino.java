@@ -33,10 +33,12 @@ public class SAImpVino implements SAVino {
 	
 	@Override
 	public int addVino(TransferVino vino) {
-		if(this.buscarVino(vino.getId()) == null && this.datos_validos_init(vino)) {
+		/*if(this.buscarVino(vino.getId()) == null && this.datos_validos_init(vino)) {
 			return this.daoVino.addVino(vino);
 		}
-		return -1;
+		
+		return -1;*/
+		return this.daoVino.addVino(vino);
 	}
 	
 	@Override

@@ -22,30 +22,25 @@ public class DAOImpVino implements DAOVino {
 	public List<TransferVino> buscarVinos() {
 		List<TransferVino> vinos = new ArrayList<>();
 		Connection conexion = dbConnection.getConnection();
-		PreparedStatement consulta = null;
-		ResultSet resultado = null;
 
-		try {
+		if (conexion != null) {
 			String sql = "SELECT * FROM inventario";
-			consulta = conexion.prepareStatement(sql);
-			resultado = consulta.executeQuery();
+			try (PreparedStatement consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+				ResultSet resultado = consulta.executeQuery();
 
-			while (resultado.next()) {
-				TransferVino vino = this.fillIn_vino(resultado);
-				vinos.add(vino);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (resultado != null)
-					resultado.close();
-				if (consulta != null)
-					consulta.close();
-				if (conexion != null)
-					conexion.close();
+				while (resultado.next()) {
+					TransferVino vino = this.fillIn_vino(resultado);
+					vinos.add(vino);
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				try {
+					if (conexion != null)
+						conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 
@@ -57,30 +52,25 @@ public class DAOImpVino implements DAOVino {
 		// String resultados = "";
 		TransferVino vino_buscado = null;
 		Connection conexion = dbConnection.getConnection();
-		PreparedStatement consulta = null;
-		ResultSet resultado = null;
 
-		try {
+		if (conexion != null) {
 			String sql = "SELECT * FROM inventario WHERE id = ?";
-			consulta = conexion.prepareStatement(sql);
-			consulta.setInt(1, id);
-			resultado = consulta.executeQuery();
+			try (PreparedStatement consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+				consulta.setInt(1, id);
+				ResultSet resultado = consulta.executeQuery();
 
-			while (resultado.next()) {
-				vino_buscado = this.fillIn_vino(resultado);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (resultado != null)
-					resultado.close();
-				if (consulta != null)
-					consulta.close();
-				if (conexion != null)
-					conexion.close();
+				while (resultado.next()) {
+					vino_buscado = this.fillIn_vino(resultado);
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				try {
+					if (conexion != null)
+						conexion.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return vino_buscado;
@@ -92,15 +82,16 @@ public class DAOImpVino implements DAOVino {
 
 		int idGenerado = -1; // Valor por defecto si el vino ya existe
 		Connection conexion = dbConnection.getConnection();
-		//PreparedStatement consulta = null;
+		// PreparedStatement consulta = null;
 
 		if (conexion != null) {
-				// Preparar la consulta SQL para insertar un nuevo vino
-				String sql = "INSERT INTO inventario (id, winery, wine, year, rating, num_reviews, num_reviews_grp, region, price, "
-						+ "type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description, catalogo) "
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			// Preparar la consulta SQL para insertar un nuevo vino
+			String sql = "INSERT INTO inventario (id, winery, wine, year, rating, num_reviews, num_reviews_grp, region, price, "
+					+ "type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description, catalogo) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			try (PreparedStatement consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-				//consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+				// consulta = conexion.prepareStatement(sql,
+				// PreparedStatement.RETURN_GENERATED_KEYS);
 				consulta.setInt(1, vino.getId());
 				consulta.setString(2, vino.getWinery());
 				consulta.setString(3, vino.getWine());

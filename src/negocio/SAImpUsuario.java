@@ -35,10 +35,10 @@ public class SAImpUsuario implements SAUsuario{
 	public int addUsuario(TransferUsuario usuario) {
 		DAOImpUsuario daoimpusuario = new DAOImpUsuario();
 		int result;
-		if (daoimpusuario.existeUsuario(usuario.getNif()))
-			result = -1;
-		else 
+		if (!daoimpusuario.existeUsuario(usuario.getNif()))
 			result = daoimpusuario.addUsuario(usuario);
+		else 
+			result = -1;
 		
 		return result;
 	}

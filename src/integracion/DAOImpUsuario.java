@@ -31,7 +31,10 @@ public class DAOImpUsuario implements DAOUsuario{
             try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
                 pstmt.setInt(1, nif);
                 try (ResultSet rs = pstmt.executeQuery()) {
-                    existe = rs.next(); // Si rs.next() devuelve true, significa que se encontró un usuario
+                    //existe = rs.next(); // Si rs.next() devuelve true, significa que se encontró un usuario
+                    if(rs.getInt("nif") == nif){
+                    	existe = true;
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -25,7 +25,7 @@ public class VentasTest {
     public void testRegistrarVenta() {
         // Crea una nueva venta
         Date fecha = new Date();
-        String producto = "Vino";
+        String producto = "Vino Proto";
         int cantidad = 10;
         double precio = 20.5;
         boolean resultado = saVentas.registrarVenta(fecha, producto, cantidad, precio);
