@@ -45,7 +45,7 @@ public class MainWindow extends JFrame {
         mainPanel.add(logoPanel, BorderLayout.CENTER);
         
         // Agregar el logo en el centro
-        ImageIcon logoIcon = new ImageIcon("img/logo.jpg");
+        ImageIcon logoIcon = new ImageIcon("img/logo.png");
         Image logoImage = logoIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH); // Ajusta el tamaño a 200x200
         ImageIcon scaledLogoIcon = new ImageIcon(logoImage);
         JLabel logoLabel = new JLabel(scaledLogoIcon);
