@@ -57,10 +57,18 @@ public class ModeloCompra extends JFrame {
         mainPanel.setAlignmentX(CENTER_ALIGNMENT);
         setContentPane(mainPanel);
         mainPanel.setPreferredSize(new Dimension(600, 400));
+       
 
         mainPanel.add(Box.createVerticalStrut(30));
+        
+        
+        JLabel titleLabel = new JLabel("COMPRAR VINOS");
+        titleLabel.setForeground(new Color(128, 0, 0));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Reducir el tamaño del título
+        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
+        mainPanel.add(titleLabel);
 
-        JPanel titlePanel = new JPanel();
+       /* JPanel titlePanel = new JPanel();
         titlePanel.setBackground(new Color(128, 0, 0));
         titlePanel.setAlignmentX(CENTER_ALIGNMENT);
         mainPanel.add(titlePanel);
@@ -68,7 +76,7 @@ public class ModeloCompra extends JFrame {
         JLabel titleLabel = new JLabel("COMPRAR VINOS");
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        titlePanel.add(titleLabel);
+        titlePanel.add(titleLabel);*/
 
         mainPanel.add(Box.createVerticalStrut(20));
 
