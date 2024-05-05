@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface SAUsuario {
 	
-	public List<TUsuario> buscarUsuarios();
-	public TUsuario buscarUsuario(int nif);
-	public int addUsuario(TUsuario usuario);
-	public void actualizarUsuario(TUsuario usuario);
+	public List<TransferUsuario> buscarUsuarios();
+	public TransferUsuario buscarUsuario(int nif);
+	public int addUsuario(TransferUsuario usuario);
+	public void actualizarUsuario(TransferUsuario usuario);
 	public boolean eliminarUsuario(int nif);
 	
 }

@@ -2,7 +2,8 @@ package presentacion;
 
 import javax.swing.*;
 
-import negocio.TUsuario;
+import negocio.SAImpUsuario;
+import negocio.TransferUsuario;
 
 import java.awt.*;
 
@@ -66,9 +67,11 @@ public class AddUsuario extends JDialog {
 
             // Lógica para agregar el usuario a la base de datos
             
-            TUsuario usuario = new TUsuario(nif, nombre, email);
+            TransferUsuario usuario = new TransferUsuario(nif, nombre, email);
+            SAImpUsuario saImpUsuario = new SAImpUsuario(usuario);
+
             
-            if(usuario.addUsuario(usuario) != -1) {
+            if(saImpUsuario.addUsuario(usuario) != -1) {
             	JOptionPane.showMessageDialog(this, "El usuario ha sido añadido con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
