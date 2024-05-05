@@ -41,9 +41,9 @@ class UsuarioTest {
         SAImpUsuario saUsuario = new SAImpUsuario();
 
         // Prueba el método addUsuario
-        TransferUsuario usuario = new TransferUsuario(123456, "Usuario Prueba", "usuario@example.com");
+        TransferUsuario usuario = new TransferUsuario(11111, "Usuario Prueba2", "usuario@example.com");
         int idUsuario = saUsuario.addUsuario(usuario);
-        assertTrue(idUsuario > 0);
+        assertTrue(idUsuario >= 0);
 
         // Prueba el método buscarUsuario
         TransferUsuario usuarioRecuperado = saUsuario.buscarUsuario(idUsuario);

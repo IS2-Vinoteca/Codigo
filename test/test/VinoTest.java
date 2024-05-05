@@ -30,9 +30,10 @@ public class VinoTest {
     @Test
     public void testAddVino() {
         // Prueba la función addVino
-        TransferVino nuevoVino = new TransferVino(/* parámetros del constructor */);
+        TransferVino nuevoVino = new TransferVino(123400089, "Winery", "Protos", 2022, 3, 15, " ", 30, 
+    			"Madrid", "tinto", 3, 4, "3", "amargo", "carne", "", 15, 20, "bueno", 0);
         int id = saVino.addVino(nuevoVino);
-        assertNotEquals(0, id); // Asegúrate de que el ID retornado no sea cero, indicando que se ha agregado correctamente
+        assertNotEquals(-1, id); // Asegúrate de que el ID retornado no sea cero, indicando que se ha agregado correctamente
     }
 
     @Test

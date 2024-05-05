@@ -34,10 +34,13 @@ public class SAImpUsuario implements SAUsuario{
 	@Override
 	public int addUsuario(TransferUsuario usuario) {
 		DAOImpUsuario daoimpusuario = new DAOImpUsuario();
+		int result;
 		if (daoimpusuario.existeUsuario(usuario.getNif()))
-			return -1;
+			result = -1;
 		else 
-			return daoimpusuario.addUsuario(usuario);		
+			result = daoimpusuario.addUsuario(usuario);
+		
+		return result;
 	}
 	
 	@Override
