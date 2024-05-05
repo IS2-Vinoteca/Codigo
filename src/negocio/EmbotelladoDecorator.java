@@ -7,4 +7,10 @@ public abstract class EmbotelladoDecorator implements EmbotelladoEnhanced{
 	public EmbotelladoDecorator(EmbotelladoEnhanced embotellado) {
 		this.embotellado = embotellado;
 	}
+
+	@Override
+	public String getDescription() {
+		
+		return "Vino ";
+	}
 }

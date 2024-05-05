@@ -12,7 +12,6 @@ public class TransferVentas implements Serializable{
     private double precio;
     private String incidencia;
     private String detalles;
-	//private DAOImpVentas daoventas;
 	
     // Constructor
 	
@@ -27,8 +26,7 @@ public class TransferVentas implements Serializable{
         this.precio = precio;
         this.incidencia = incidencia;
         this.detalles = detalles;
-        
-       // this.daoventas = new DAOImpVentas();
+ 
     }
 
     // Getters y setters
@@ -100,10 +98,4 @@ public class TransferVentas implements Serializable{
                 ", incidencia='" + incidencia + '\'' +
                 '}';
     }
-	
-
-	
-	
-	
-	
 }

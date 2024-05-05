@@ -5,5 +5,5 @@ public interface EmbotelladoEnhanced {
 	//del tipo de cliente: 1 cliente casual a 5 cliente muy comprometido
 	double getPrecio();
 	String getDescription();
-	int getStatusValue(); 
+	//int getStatusValue(); 
 }

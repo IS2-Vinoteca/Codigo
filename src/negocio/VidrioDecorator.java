@@ -16,4 +16,9 @@ public class VidrioDecorator extends EmbotelladoDecorator{
 		return embotellado.getPrecio() + precioVidrio;
 	}
 
+	@Override
+	public String getDescription() {
+		
+		return embotellado.getDescription() + " en botella de vidrio";
+	}
 }

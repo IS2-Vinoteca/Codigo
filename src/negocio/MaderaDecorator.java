@@ -15,4 +15,10 @@ public class MaderaDecorator extends EmbotelladoDecorator{
 		
 		return embotellado.getPrecio() + precioMadera;
 	}
+
+	@Override
+	public String getDescription() {
+		
+		return embotellado.getDescription() + " en botella de madera";
+	}
 }

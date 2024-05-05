@@ -18,11 +18,4 @@ public class RegaloEmbotellado extends EmbotelladoDecorator{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public int getStatusValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
