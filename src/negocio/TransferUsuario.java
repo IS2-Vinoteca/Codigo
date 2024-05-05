@@ -13,9 +13,12 @@ public class TransferUsuario implements Serializable {
 	}
 	
 	public TransferUsuario (int nif, String nombre, String email) {
-	this.nif = nif; 
-	this.nombre = nombre;
-	this.email = email;
+		if(nif != 0) {
+			this.nif = nif; 
+		}
+		
+		this.nombre = nombre;
+		this.email = email;
 	}
 	
 	
@@ -24,11 +27,13 @@ public class TransferUsuario implements Serializable {
 	}
 	
 	public String getNombre () {
-	return nombre;
+		return nombre;
 	}
 
 	public void setNif (int nif) {
-	this.nif = nif;
+		if(nif == 0) {
+			
+		} else {this.nif = nif; }
 	}
 	
 	public String getEmail () {

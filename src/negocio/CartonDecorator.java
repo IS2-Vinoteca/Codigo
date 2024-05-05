@@ -15,4 +15,16 @@ public class CartonDecorator extends EmbotelladoDecorator {
 		
 		return embotellado.getPrecio() + precioMadera;
 	}
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getStatusValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

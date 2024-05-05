@@ -37,10 +37,7 @@ public class SAImpUsuario implements SAUsuario{
 		if (daoimpusuario.existeUsuario(usuario.getNif()))
 			return -1;
 		else 
-			return daoimpusuario.addUsuario(usuario);
-		
-		
-		
+			return daoimpusuario.addUsuario(usuario);		
 	}
 	
 	@Override

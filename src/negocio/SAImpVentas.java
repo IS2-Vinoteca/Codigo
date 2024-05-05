@@ -29,13 +29,11 @@ public class SAImpVentas implements SAVentas{
 
 	@Override
 	public List<TransferVentas> listadoIncidencias() {
-		// TODO Auto-generated method stub
 		DAOImpVentas daoventas = new DAOImpVentas();
 		return daoventas.listadoIncidencias();
 	}
 	@Override
 	public boolean eliminarVenta(int idVenta) {
-		// TODO Auto-generated method stub
 		DAOImpVentas daoventas = new DAOImpVentas();
 		return daoventas.eliminarVenta(idVenta);
 	}
