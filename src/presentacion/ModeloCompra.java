@@ -97,6 +97,7 @@ public class ModeloCompra extends JFrame {
             catalogPanel.add(createWineTab(vino));
         }
 
+        
         //agregamos el scrollpane para poder ver los vinos
         JScrollPane scrollPane = new JScrollPane(catalogPanel);      
         scrollPane.setPreferredSize(new Dimension(600, 200));     
