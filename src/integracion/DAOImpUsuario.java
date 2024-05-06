@@ -31,19 +31,19 @@ public class DAOImpUsuario implements DAOUsuario{
             try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
                 pstmt.setInt(1, nif);
                 try (ResultSet rs = pstmt.executeQuery()) {
-                    //existe = rs.next(); // Si rs.next() devuelve true, significa que se encontró un usuario
-                    if(rs.getInt("nif") == nif){
-                    	existe = true;
+                    if (rs.next()) {
+                        existe = true; // Si hay al menos una fila, el usuario existe
                     }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } /*finally {
-                dbConnection.desconectar();
-            }*/
+            } finally {
+                // Aquí no es necesario cerrar la conexión, ya que lo haces en el DAOImpUsuario
+            }
         }
         return existe;
     }
+
 
 	
     public List<TransferUsuario> buscarUsuarios() {

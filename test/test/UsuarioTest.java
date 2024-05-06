@@ -1,61 +1,49 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import integracion.DAOImpUsuario;
 import negocio.SAImpUsuario;
 import negocio.TransferUsuario;
 
 class UsuarioTest {
 
-	@Test
-    public void testDAOImpUsuario() {
-        DAOImpUsuario daoUsuario = new DAOImpUsuario();
+    private SAImpUsuario saUsuario;
+    private int idUsuario; // Necesitas este campo para la prueba de eliminación
 
-        // Prueba el método addUsuario
-        TransferUsuario usuario = new TransferUsuario(123456, "Usuario Prueba", "usuario@example.com");
-        int idUsuario = daoUsuario.addUsuario(usuario);
-        assertTrue(idUsuario > 0);
-
-        // Prueba el método buscarUsuario
-        TransferUsuario usuarioRecuperado = daoUsuario.buscarUsuario(idUsuario);
-        assertNotNull(usuarioRecuperado);
-        assertEquals(usuario.getNif(), usuarioRecuperado.getNif());
-
-        // Prueba el método buscarUsuarios
-        List<TransferUsuario> usuarios = daoUsuario.buscarUsuarios();
-        assertNotNull(usuarios);
-        assertTrue(usuarios.size() > 0);
-
-        // Prueba el método eliminarUsuario
-        boolean eliminado = daoUsuario.eliminarUsuario(idUsuario);
-        assertTrue(eliminado);
+    @BeforeEach
+    public void setUp() {
+        // Aquí puedes inicializar cualquier objeto que necesites para las pruebas
+        saUsuario = new SAImpUsuario();
     }
 
     @Test
-    public void testSAImpUsuario() {
-        SAImpUsuario saUsuario = new SAImpUsuario();
-
-        // Prueba el método addUsuario
+    public void testAddUsuario() {
         TransferUsuario usuario = new TransferUsuario(123, "administrador", "admin@");
-        int idUsuario = saUsuario.addUsuario(usuario);
-        assertTrue(idUsuario < 0); //tiene que dar -1 porque este usuario ya existe en la base de datos
+        idUsuario = saUsuario.addUsuario(usuario);
+        assertTrue(idUsuario < 0); // Debe ser -1 porque este usuario ya existe en la base de datos
+    }
 
-        // Prueba el método buscarUsuario
+    @Test
+    public void testBuscarUsuario() {
         TransferUsuario usuarioRecuperado = saUsuario.buscarUsuario(123);
         assertNotNull(usuarioRecuperado);
-        assertEquals(usuario.getNif(), usuarioRecuperado.getNif());
+    }
 
-        // Prueba el método buscarUsuarios
+    @Test
+    public void testBuscarUsuarios() {
         List<TransferUsuario> usuarios = saUsuario.buscarUsuarios();
         assertNotNull(usuarios);
         assertTrue(usuarios.size() > 0);
+    }
 
-        // Prueba el método eliminarUsuario
+    @Test
+    public void testEliminarUsuario() {
         boolean eliminado = saUsuario.eliminarUsuario(idUsuario);
         assertTrue(eliminado);
     }

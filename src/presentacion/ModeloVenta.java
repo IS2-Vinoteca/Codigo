@@ -29,7 +29,7 @@ public class ModeloVenta extends JDialog{
 		    JPanel panel = new JPanel(new BorderLayout());
 
 		    // Crear tabla para mostrar incidencias
-		    String[] columnNames = {"ID Venta", "Producto", "Fecha", "Detalles"};
+		    String[] columnNames = {"ID Venta", "Producto", "Fecha", "Detalles", "Estado"};
 		    DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 		    JTable table = new JTable(tableModel);
 
@@ -45,7 +45,7 @@ public class ModeloVenta extends JDialog{
 		    if (listaIncidencias != null) {
 		        // Agregar cada incidencia a la tabla
 		        for (TransferVentas incidencia : listaIncidencias) {
-		            Object[] rowData = {incidencia.getId(), incidencia.getProducto(), incidencia.getFecha(), incidencia.getDetalles()};
+		            Object[] rowData = {incidencia.getId(), incidencia.getProducto(), incidencia.getFecha(), incidencia.getDetalles(), incidencia.getIncidencia()};
 		            tableModel.addRow(rowData);
 		        }
 		    } else {

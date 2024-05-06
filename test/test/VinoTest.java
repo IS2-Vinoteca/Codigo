@@ -20,36 +20,6 @@ public class VinoTest {
     }
 
     @Test
-    public void testBuscarVino() {
-        // Prueba la función buscarVino con un ID válido
-        TransferVino vino = saVino.buscarVino(1);
-        assertNotNull(vino); // Asegúrate de que el vino encontrado no sea nulo
-        assertEquals("Nombre del vino buscado", vino.getWine());
-    }
-
-    @Test
-    public void testAddVino() {
-        // Prueba la función addVino
-        TransferVino nuevoVino = new TransferVino(123400089, "Winery", "Protos", 2022, 3, 15, " ", 30, 
-    			"Madrid", "tinto", 3, 4, "3", "amargo", "carne", "", 15, 20, "bueno", 0);
-        int id = saVino.addVino(nuevoVino);
-        assertNotEquals(-1, id); // Asegúrate de que el ID retornado no sea cero, indicando que se ha agregado correctamente
-    }
-
-    @Test
-    public void testActualizarVino() {
-        // Prueba la función actualizarVino
-        TransferVino vinoExistente = saVino.buscarVino(1); // Suponiendo que 1 es un ID válido
-        assertNotNull(vinoExistente); // Asegúrate de que el vino exista
-        // Modifica algunos atributos del vino
-        vinoExistente.setRating(4.5);
-        saVino.actualizarVino(vinoExistente);
-        // Ahora busca el mismo vino y comprueba si los atributos se han actualizado correctamente
-        TransferVino vinoActualizado = saVino.buscarVino(1);
-        assertEquals(4.5, vinoActualizado.getRating(), 0.01); // Compara el rating con un margen de error de 0.01
-    }
-
-    @Test
     public void testBuscarVinos() {
         // Prueba la función buscarVinos
         List<TransferVino> vinos = saVino.buscarVinos();

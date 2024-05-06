@@ -1,20 +1,20 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import java.util.Date;
 
 import negocio.SAImpVentas;
 import negocio.TransferVentas;
-import integracion.DAOImpVentas;
 
 public class VentasTest {
     
     private SAImpVentas saVentas;
     
-    @Before
+    @BeforeEach
     public void setUp() {
         // Aquí puedes inicializar cualquier objeto que necesites para las pruebas
         // Por ejemplo, si necesitas instanciar una implementación de DAOVentas
@@ -47,8 +47,8 @@ public class VentasTest {
     @Test
     public void testActualizarIncidencia() {
         // Suponiendo que tienes una venta existente
-        int idVenta = 1;
-        String estado = "Resuelto";
+        int idVenta = 2;
+        String estado = "Resuelta";
         String detalles = "El cliente recibió el producto correctamente";
         
         // Actualiza la incidencia de la venta

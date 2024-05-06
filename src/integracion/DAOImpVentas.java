@@ -56,7 +56,7 @@ public class DAOImpVentas implements DAOVentas{
 	    Connection conexion = dbConnection.getConnection();
 	    
 	    if (conexion != null) {
-	    	String query = "SELECT * FROM ventas WHERE incidencia = 1";
+	    	String query = "SELECT * FROM ventas WHERE incidencia = 'Abierta'";
 	        try (Statement stmt = conexion.createStatement();
 	             ResultSet rs = stmt.executeQuery(query)) {
 	            while (rs.next()) {
@@ -105,11 +105,11 @@ public class DAOImpVentas implements DAOVentas{
 	    boolean actualizado = false;
 	    Connection conexion = dbConnection.getConnection();
 	    if (conexion != null) {
-	        String query = "UPDATE ventas SET incidencia = 1, detalles_incidencia = ? WHERE id = ?";
+	        String query = "UPDATE ventas SET incidencia = ?, detalles_incidencia = ? WHERE id = ?";
 	        try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
-	            //pstmt.setString(1, estado);
-	            pstmt.setString(1, detalles);
-	            pstmt.setInt(2, idVenta);
+	            pstmt.setString(1, estado);
+	            pstmt.setString(2, detalles);
+	            pstmt.setInt(3, idVenta);
 	            int filasActualizadas = pstmt.executeUpdate();
 	            if (filasActualizadas > 0) {
 	                actualizado = true;
