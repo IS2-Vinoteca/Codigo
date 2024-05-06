@@ -22,6 +22,26 @@ public class DAOImpUsuario implements DAOUsuario{
     }
     
     @Override
+//    public boolean existeUsuario(int nif) {
+//        Connection conexion = dbConnection.getConnection();
+//        boolean existe = false;
+//        
+//        if (conexion != null) {
+//            String query = "SELECT nif FROM usuarios WHERE nif = ?";
+//            try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
+//                pstmt.setInt(1, nif);
+//                try (ResultSet rs = pstmt.executeQuery()) {
+//                    if(rs.getInt("nif") == nif){
+//                    	existe = true;
+//                    }
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return existe;
+//    }
+    
     public boolean existeUsuario(int nif) {
         Connection conexion = dbConnection.getConnection();
         boolean existe = false;
@@ -31,21 +51,20 @@ public class DAOImpUsuario implements DAOUsuario{
             try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
                 pstmt.setInt(1, nif);
                 try (ResultSet rs = pstmt.executeQuery()) {
-                    //existe = rs.next(); // Si rs.next() devuelve true, significa que se encontró un usuario
-                    if(rs.getInt("nif") == nif){
-                    	existe = true;
+                    if (rs.next()) {
+                        existe = true; // Si hay al menos una fila, el usuario existe
                     }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            } /*finally {
-                dbConnection.desconectar();
-            }*/
+            } finally {
+                // Aquí no es necesario cerrar la conexión, ya que lo haces en el DAOImpUsuario
+            }
         }
         return existe;
     }
 
-	
+    @Override
     public List<TransferUsuario> buscarUsuarios() {
         List<TransferUsuario> usuarios = new ArrayList<>();
         Connection conexion = dbConnection.getConnection();
@@ -125,26 +144,30 @@ public class DAOImpUsuario implements DAOUsuario{
 
 	@Override
 	public int addUsuario(TransferUsuario usuario) {
-		int filasAfectadas = -1; //devuelve -1 si no se ha añadido = ha fallado
-        Connection conexion = dbConnection.getConnection();
-        
-        if (conexion != null) {
-            String query = "INSERT INTO usuarios (nif, nombre, email) VALUES (?, ?, ?)";
-            try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
-                pstmt.setInt(1, usuario.getNif());
-                pstmt.setString(2, usuario.getNombre());
-                pstmt.setString(3, usuario.getEmail());
+	    int filasAfectadas = -1; // Devuelve -1 si no se ha añadido = ha fallado
+	    Connection conexion = dbConnection.getConnection();
 
-                filasAfectadas = pstmt.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                dbConnection.desconectar();
-            }
-        }
+	    if (conexion != null) {
+	        // Comprobar si el usuario ya existe antes de añadirlo
+	        if (!existeUsuario(usuario.getNif())) {
+	            String query = "INSERT INTO usuarios (nif, nombre, email) VALUES (?, ?, ?)";
+	            try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
+	                pstmt.setInt(1, usuario.getNif());
+	                pstmt.setString(2, usuario.getNombre());
+	                pstmt.setString(3, usuario.getEmail());
 
-        return filasAfectadas;
+	                filasAfectadas = pstmt.executeUpdate();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            } finally {
+	                dbConnection.desconectar();
+	            }
+	        }
+	    }
+
+	    return filasAfectadas;
 	}
+
 
 	
 }

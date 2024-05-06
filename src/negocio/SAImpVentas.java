@@ -32,16 +32,20 @@ public class SAImpVentas implements SAVentas{
 		DAOImpVentas daoventas = new DAOImpVentas();
 		return daoventas.listadoIncidencias();
 	}
+	
 	@Override
 	public boolean eliminarVenta(int idVenta) {
 		DAOImpVentas daoventas = new DAOImpVentas();
 		return daoventas.eliminarVenta(idVenta);
 	}
+	
+	@Override
 	public boolean actualizarIncidencia(int idVenta, String incidencia, String detalles) {
 		DAOImpVentas daoventas = new DAOImpVentas();
 		return daoventas.actualizarIncidencia(idVenta,incidencia, detalles);
 	}
 	
+	@Override
 	public boolean registrarVenta(Date fecha, String producto, int cantidad, double precio) {
 		DAOImpVentas daoventas = new DAOImpVentas();
 		return daoventas.registrarVenta(fecha, producto, cantidad, precio);
