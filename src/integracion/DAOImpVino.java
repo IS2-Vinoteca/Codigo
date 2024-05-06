@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import java.util.ArrayList;
 
 import ddbb.DBConnection;
@@ -24,6 +27,8 @@ public class DAOImpVino implements DAOVino {
 		Connection conexion = dbConnection.getConnection();
 
 		if (conexion != null) {
+            //JOptionPane.showMessageDialog(null, "conexion != null");
+
 			String sql = "SELECT * FROM inventario";
 			try (PreparedStatement consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 				ResultSet resultado = consulta.executeQuery();

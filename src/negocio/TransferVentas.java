@@ -16,7 +16,8 @@ public class TransferVentas implements Serializable{
     // Constructor
 	
 	public TransferVentas() {
-		
+        this.incidencia = "0";
+
 	}
     public TransferVentas(int id, Date fecha, String producto, int cantidad, double precio, String incidencia, String detalles) {
         this.id = id;
