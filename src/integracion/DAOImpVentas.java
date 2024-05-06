@@ -50,14 +50,13 @@ public class DAOImpVentas implements DAOVentas{
         
         return ventas;
     }
-	
 	@Override
 	public List<TransferVentas> listadoIncidencias() {
 	    List<TransferVentas> ventasConIncidencias = new ArrayList<>();
 	    Connection conexion = dbConnection.getConnection();
 	    
 	    if (conexion != null) {
-	    	String query = "SELECT * FROM ventas WHERE incidencia = 'Abierta'";
+	    	String query = "SELECT * FROM ventas WHERE incidencia = 1";
 	        try (Statement stmt = conexion.createStatement();
 	             ResultSet rs = stmt.executeQuery(query)) {
 	            while (rs.next()) {
@@ -81,8 +80,7 @@ public class DAOImpVentas implements DAOVentas{
 	    
 	    return ventasConIncidencias;
 	}
-	
-	@Override
+
 	public boolean eliminarVenta(int idVenta) {
 	    boolean eliminado = false;
 	    Connection conexion = dbConnection.getConnection();

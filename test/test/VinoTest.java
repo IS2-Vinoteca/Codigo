@@ -1,8 +1,7 @@
 package test;
-
 import static org.junit.Assert.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import negocio.SAImpVino;
 import negocio.SAVino;
@@ -14,7 +13,7 @@ public class VinoTest {
 
     private SAVino saVino;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         // Aquí puedes inicializar tus objetos necesarios para las pruebas, como un objeto SAVino
         saVino = new SAImpVino(); // Suponiendo que SAImpVino implementa la interfaz SAVino
@@ -32,7 +31,7 @@ public class VinoTest {
     public void testAddVino() {
         // Prueba la función addVino
         TransferVino nuevoVino = new TransferVino(123400089, "Winery", "Protos", 2022, 3, 15, " ", 30, 
-                "Madrid", "tinto", 3, 4, "3", "amargo", "carne", "", 15, 20, "bueno", 0);
+    			"Madrid", "tinto", 3, 4, "3", "amargo", "carne", "", 15, 20, "bueno", 0);
         int id = saVino.addVino(nuevoVino);
         assertNotEquals(-1, id); // Asegúrate de que el ID retornado no sea cero, indicando que se ha agregado correctamente
     }
@@ -45,7 +44,7 @@ public class VinoTest {
         // Modifica algunos atributos del vino
         vinoExistente.setRating(4.5);
         saVino.actualizarVino(vinoExistente);
-        // Ahora busca el mismo vino y comprueba si los atributos se han actualizados correctamente
+        // Ahora busca el mismo vino y comprueba si los atributos se han actualizado correctamente
         TransferVino vinoActualizado = saVino.buscarVino(1);
         assertEquals(4.5, vinoActualizado.getRating(), 0.01); // Compara el rating con un margen de error de 0.01
     }

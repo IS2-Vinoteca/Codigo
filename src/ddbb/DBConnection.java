@@ -6,7 +6,7 @@ public class DBConnection {
 	/** Parametros de conexion **/
 	static String bd = "is2-bbdd-vinoteca";
 	static String login = "root";
-	static String password = "22092000GatoPanda"; // QUE CADA UNA PONGA SU CONTRASEÑA (ya lo corregiremos para tener todas la
+	static String password = "debepa1601"; // QUE CADA UNA PONGA SU CONTRASEÑA (ya lo corregiremos para tener todas la
 												// misma)
 	static String url = "jdbc:mysql://localhost/is2-bbdd-vinoteca";
 

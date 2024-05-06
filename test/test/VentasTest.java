@@ -1,20 +1,20 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
+import org.junit.Before;
+import org.junit.Test;
 import java.util.List;
 import java.util.Date;
 
 import negocio.SAImpVentas;
 import negocio.TransferVentas;
+import integracion.DAOImpVentas;
 
 public class VentasTest {
     
     private SAImpVentas saVentas;
     
-    @BeforeEach
+    @Before
     public void setUp() {
         // Aquí puedes inicializar cualquier objeto que necesites para las pruebas
         // Por ejemplo, si necesitas instanciar una implementación de DAOVentas
