@@ -58,11 +58,12 @@ public class ModeloConsulta extends JDialog {
         btnConsulta.addActionListener(e -> {
             consultar(selected);
         });
+        
         txtAreaResultado = new JTextArea(10, 15);
         txtAreaResultado.setEditable(false); // Para evitar que el usuario modifique el resultado
 
         JPanel panelConsulta = new JPanel(new FlowLayout());
-       // setPreferredSize(new Dimension(400, 200));
+       
         panelConsulta.add(txtField);
         panelConsulta.add(btnConsulta);
 
@@ -81,7 +82,7 @@ public class ModeloConsulta extends JDialog {
 
     private void consultar(String selected) {
         String consulta = txtField.getText();
-        SAImpVino saImpVino = new SAImpVino();
+        SAImpVino saImpVino = SAImpVino.getInstance();
         String resultado = "";
 
         switch (selected) {

@@ -18,9 +18,8 @@ public class DAOImpVentas implements DAOVentas{
 	 
 	public DAOImpVentas() {
 	        dbConnection = new DBConnection();
-	    }
+	}
 
-	
 	@Override
 	   public List<TransferVentas> listadoVentas() {
         List<TransferVentas> ventas = new ArrayList<>();
@@ -50,6 +49,7 @@ public class DAOImpVentas implements DAOVentas{
         
         return ventas;
     }
+	
 	@Override
 	public List<TransferVentas> listadoIncidencias() {
 	    List<TransferVentas> ventasConIncidencias = new ArrayList<>();
@@ -81,6 +81,7 @@ public class DAOImpVentas implements DAOVentas{
 	    return ventasConIncidencias;
 	}
 
+	@Override
 	public boolean eliminarVenta(int idVenta) {
 	    boolean eliminado = false;
 	    Connection conexion = dbConnection.getConnection();
@@ -101,6 +102,7 @@ public class DAOImpVentas implements DAOVentas{
 	    return eliminado;
 	}
 	
+	@Override
 	public boolean actualizarIncidencia(int idVenta, String estado, String detalles) {
 	    boolean actualizado = false;
 	    Connection conexion = dbConnection.getConnection();
@@ -123,7 +125,7 @@ public class DAOImpVentas implements DAOVentas{
 	    return actualizado;
 	}
 	
-	
+	@Override
 	public boolean registrarVenta(Date fecha, String producto, int cantidad, double precio) {
         boolean success = false;
         Connection con = dbConnection.getConnection();
@@ -160,14 +162,4 @@ public class DAOImpVentas implements DAOVentas{
 
         return success;
     }
-
-
-	
-
-    // Otros métodos del DAO
-
-
-
-
-
 }

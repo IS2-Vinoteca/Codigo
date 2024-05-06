@@ -7,18 +7,21 @@ import integracion.DAOImpVentas;
 
 public class SAImpVentas implements SAVentas{
     
+	private static SAImpVentas instance;
 	private TransferVentas TVentas;
-	
-    // Constructor
-	public SAImpVentas() {
-		
-	}
-	
+
+	private SAImpVentas() {}
+
 	public SAImpVentas(TransferVentas TVentas) {
-	
 		this.TVentas = TVentas;
 	}
-
+	
+	public static SAImpVentas getInstance() {
+		if (instance == null) {
+			instance = new SAImpVentas();
+		}
+		return instance;
+	}
 
 	@Override
 	public List<TransferVentas> listadoVentas() {

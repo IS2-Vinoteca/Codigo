@@ -68,16 +68,6 @@ public class ModeloCompra extends JFrame {
         titleLabel.setAlignmentX(CENTER_ALIGNMENT);
         mainPanel.add(titleLabel);
 
-       /* JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(new Color(128, 0, 0));
-        titlePanel.setAlignmentX(CENTER_ALIGNMENT);
-        mainPanel.add(titlePanel);
-
-        JLabel titleLabel = new JLabel("COMPRAR VINOS");
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        titlePanel.add(titleLabel);*/
-
         mainPanel.add(Box.createVerticalStrut(20));
 
         JPanel catalogPanel = new JPanel();
@@ -89,15 +79,13 @@ public class ModeloCompra extends JFrame {
         //recorremos la lista de vinos y creamos un panel para cada uno
         
         TransferVino v = new TransferVino();
-        SAImpVino saImpVino = new SAImpVino();
-        List<TransferVino> listaVinos = saImpVino.buscarVinos();
+        SAImpVino saImpVino = SAImpVino.getInstance();
+        List<TransferVino> listaVinos = saImpVino.realizarConsultaCatalogo();
 
-        System.out.println(listaVinos.size()); //imprime la cantidad de vinos
         for (TransferVino vino : listaVinos) {
             catalogPanel.add(createWineTab(vino));
         }
 
-        
         //agregamos el scrollpane para poder ver los vinos
         JScrollPane scrollPane = new JScrollPane(catalogPanel);      
         scrollPane.setPreferredSize(new Dimension(600, 200));     
@@ -127,7 +115,7 @@ public class ModeloCompra extends JFrame {
                 if (carritoCompras.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "El carrito de compras está vacío");
                 } else {
-                	SAImpVentas saImpVentas = new SAImpVentas();
+                	SAImpVentas saImpVentas = SAImpVentas.getInstance();
                     for (TransferVino vino : carritoCompras) {
                     	saImpVentas.registrarVenta(new Date(), vino.getWine(), venta.getCantidad(), vino.getPrice());
                     }

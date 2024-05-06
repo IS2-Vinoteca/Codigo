@@ -7,18 +7,24 @@ import integracion.DAOImpVino;
 
 public class SAImpVino implements SAVino {
 
+	private static SAImpVino instance;
 	private TransferVino TVino;
 	private DAOImpVino daoVino;
-	
-	public SAImpVino(TransferVino TVino) {
-		
+
+	private SAImpVino(TransferVino TVino) {
 		this.TVino = TVino;
+	    this.daoVino = new DAOImpVino();
+	}
+
+	private SAImpVino() {
 		this.daoVino = new DAOImpVino();
 	}
-	
-	public SAImpVino() {
-		// TODO Auto-generated constructor stub
-		this.daoVino = new DAOImpVino();
+
+	public static SAImpVino getInstance() {
+	    if (instance == null) {
+	      instance = new SAImpVino();
+	    }
+	    return instance;
 	}
 
 	@Override
@@ -33,11 +39,6 @@ public class SAImpVino implements SAVino {
 	
 	@Override
 	public int addVino(TransferVino vino) {
-		/*if(this.buscarVino(vino.getId()) == null && this.datos_validos_init(vino)) {
-			return this.daoVino.addVino(vino);
-		}
-		
-		return -1;*/
 		return this.daoVino.addVino(vino);
 	}
 	
@@ -120,7 +121,7 @@ public class SAImpVino implements SAVino {
 	}
 
 	@Override
-	public String realizarConsultaCatalogo() {
+	public List<TransferVino> realizarConsultaCatalogo() {
 		return this.daoVino.realizarConsultaCatalogo();
 	}
 

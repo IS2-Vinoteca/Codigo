@@ -398,7 +398,7 @@ public class DAOImpVino implements DAOVino {
 		ResultSet resultado = null;
 
 		try {
-			String sql = "SELECT * FROM vinos WHERE alcohol_percentage = ?";
+			String sql = "SELECT * FROM inventario WHERE alcohol_percentage = ?";
 			consulta = conexion.prepareStatement(sql);
 			consulta.setDouble(1, alcohol_percentaje);
 			resultado = consulta.executeQuery();
@@ -433,7 +433,7 @@ public class DAOImpVino implements DAOVino {
 		ResultSet resultado = null;
 
 		try {
-			String sql = "SELECT * FROM vinos WHERE taste = ?";
+			String sql = "SELECT * FROM inventario WHERE taste = ?";
 			consulta = conexion.prepareStatement(sql);
 			consulta.setString(1, taste);
 			resultado = consulta.executeQuery();
@@ -460,40 +460,41 @@ public class DAOImpVino implements DAOVino {
 		return resultados.toString();
 	}
 
-	public String realizarConsultaCatalogo() {
+	@Override
+	public List<TransferVino> realizarConsultaCatalogo() {
+	    List<TransferVino> resultados = new ArrayList<>();
+	    Connection conexion = null;
+	    PreparedStatement consulta = null;
+	    ResultSet resultado = null;
 
-		String resultados = "";
-		Connection conexion = null;
-		PreparedStatement consulta = null;
-		ResultSet resultado = null;
+	    try {
+	        conexion = dbConnection.getConnection();
+	        String sql = "SELECT * FROM inventario WHERE catalogo = ?";
+	        consulta = conexion.prepareStatement(sql);
+	        consulta.setInt(1, 1); // Consulta vinos que tienen el atributo "catalogo" igual a 1
+	        resultado = consulta.executeQuery();
 
-		try {
-			conexion = dbConnection.getConnection();
-			String sql = "SELECT * FROM vinos WHERE catalogo = ?";
-			consulta = conexion.prepareStatement(sql);
-			consulta.setInt(1, 1); // Consulta vinos que tienen el atributo "catalogo" igual a 1
-			resultado = consulta.executeQuery();
+	        while (resultado.next()) {
+	            TransferVino vino = fillIn_vino(resultado);
+	            resultados.add(vino);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        // En caso de error, puedes lanzar una excepción o devolver una lista vacía
+	    } finally {
+	        try {
+	            if (resultado != null)
+	                resultado.close();
+	            if (consulta != null)
+	                consulta.close();
+	            if (conexion != null)
+	                conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
-			while (resultado.next()) {
-				resultados += fillIn_ResultadoConsulta(resultado);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			resultados = "Error al realizar la consulta: " + e.getMessage();
-		} finally {
-			try {
-				if (resultado != null)
-					resultado.close();
-				if (consulta != null)
-					consulta.close();
-				if (conexion != null)
-					conexion.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return resultados;
+	    return resultados;
 	}
 
 	private TransferVino fillIn_vino(ResultSet resultado) throws SQLException {

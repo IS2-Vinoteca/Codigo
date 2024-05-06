@@ -53,7 +53,7 @@ public class AccionesUsuario extends JDialog {
 		            	           
 		           
 		            TransferUsuario user = new TransferUsuario();
-		            SAImpUsuario saImpUsuario = new SAImpUsuario();
+		            SAImpUsuario saImpUsuario = SAImpUsuario.getInstance();
 		            user = saImpUsuario.buscarUsuario(nif);
 
 		            
@@ -95,7 +95,7 @@ public class AccionesUsuario extends JDialog {
 		        JScrollPane scrollPane = new JScrollPane(table);
 
 		        // Obtener la lista de usuarios
-		        SAImpUsuario saImpUsuario = new SAImpUsuario();
+		        SAImpUsuario saImpUsuario = SAImpUsuario.getInstance();
 		        List<TransferUsuario> lista_usuarios = saImpUsuario.buscarUsuarios();
 
 		        // Verificar si la lista de usuarios es null
@@ -121,7 +121,7 @@ public class AccionesUsuario extends JDialog {
 		                // Obtener el ID del usuario seleccionado
 		                int id = (int) tableModel.getValueAt(selectedRow, 0);
 		                // Llamar al método para eliminar el usuario
-		                SAImpUsuario saImpUser = new SAImpUsuario();
+		                SAImpUsuario saImpUser = SAImpUsuario.getInstance();
 		                boolean eliminado = saImpUser.eliminarUsuario(id);
 		                if (eliminado) {
 		                    JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);

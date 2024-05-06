@@ -18,7 +18,7 @@ public class VentasTest {
     public void setUp() {
         // Aquí puedes inicializar cualquier objeto que necesites para las pruebas
         // Por ejemplo, si necesitas instanciar una implementación de DAOVentas
-        saVentas = new SAImpVentas();
+        saVentas = SAImpVentas.getInstance();
     }
     
     @Test

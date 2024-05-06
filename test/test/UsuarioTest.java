@@ -19,7 +19,7 @@ class UsuarioTest {
     @BeforeEach
     public void setUp() {
         // Aquí puedes inicializar cualquier objeto que necesites para las pruebas
-        saUsuario = new SAImpUsuario();
+        saUsuario = SAImpUsuario.getInstance();
     }
 
     @Test

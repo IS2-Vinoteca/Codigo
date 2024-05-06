@@ -38,7 +38,7 @@ public class ModeloVenta extends JDialog{
 
 		    // Obtener la lista de incidencias
 		    // Aquí debes llamar al método del controlador para obtener la lista de incidencias
-		   SAImpVentas saImpVentas = new SAImpVentas(); 
+		   SAImpVentas saImpVentas = SAImpVentas.getInstance(); 
 		   List<TransferVentas> listaIncidencias = saImpVentas.listadoIncidencias();
 
 		    // Verificar si la lista de incidencias es null
@@ -75,7 +75,7 @@ public class ModeloVenta extends JDialog{
 
         // Obtener la lista de ventas
         // Aquí debes llamar al método del controlador para obtener la lista de ventas
-       SAImpVentas saImpVentas = new SAImpVentas(); 
+       SAImpVentas saImpVentas = SAImpVentas.getInstance(); 
        List<TransferVentas> listaventas = saImpVentas.listadoVentas();
 
         // Verificar si la lista de ventas es null
@@ -101,7 +101,7 @@ public class ModeloVenta extends JDialog{
                 // Obtener el ID de la venta seleccionada
                 int idVenta = (int) tableModel.getValueAt(selectedRow, 0);
                 // Eliminar la venta de la base de datos     
-                SAImpVentas impVentas = new SAImpVentas();   
+                SAImpVentas impVentas = SAImpVentas.getInstance();   
                 boolean eliminado = impVentas.eliminarVenta(idVenta);
                 if (eliminado) {
                     JOptionPane.showMessageDialog(this, "Venta aceptada y eliminada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -132,7 +132,7 @@ public class ModeloVenta extends JDialog{
                     String detallesIncidencia = detallesField.getText();
                     
                     // Cambiar el estado de incidencia de la venta en la base de datos
-                    SAImpVentas ventas = new SAImpVentas();                    
+                    SAImpVentas ventas = SAImpVentas.getInstance();                    
                     boolean actualizado = ventas.actualizarIncidencia(idVenta, "1", detallesIncidencia);
                     if (actualizado) {
                         JOptionPane.showMessageDialog(dialog, "Incidencia generada para la venta seleccionada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
