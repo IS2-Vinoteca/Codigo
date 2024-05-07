@@ -3,6 +3,7 @@ package negocio;
 import java.util.Calendar;
 import java.util.List;
 
+import integracion.DAOImpUsuario;
 import integracion.DAOImpVino;
 
 public class SAImpVino implements SAVino {
@@ -37,8 +38,14 @@ public class SAImpVino implements SAVino {
 	
 	@Override
 	public int addVino(TransferVino vino) {
+		
 		DAOImpVino daoVino = new DAOImpVino();
-		return daoVino.addVino(vino);
+		
+		int result = -1;
+		if(!daoVino.vinoExists(vino.getId()))
+			result = daoVino.addVino(vino);
+
+		return result;
 	}
 	
 	@Override

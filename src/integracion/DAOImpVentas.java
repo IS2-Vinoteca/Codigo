@@ -56,7 +56,7 @@ public class DAOImpVentas implements DAOVentas{
 	    Connection conexion = dbConnection.getConnection();
 	    
 	    if (conexion != null) {
-	    	String query = "SELECT * FROM ventas WHERE incidencia = 'Abierta'";
+	    	String query = "SELECT * FROM ventas WHERE incidencia IS NOT NULL";
 	        try (Statement stmt = conexion.createStatement();
 	             ResultSet rs = stmt.executeQuery(query)) {
 	            while (rs.next()) {
@@ -162,4 +162,35 @@ public class DAOImpVentas implements DAOVentas{
 
         return success;
     }
+	
+	@Override
+	public TransferVentas obtenerVentaPorId(int idVenta) {
+	    TransferVentas venta = null;
+	    Connection conexion = dbConnection.getConnection();
+
+	    if (conexion != null) {
+	        String query = "SELECT * FROM ventas WHERE id = ?";
+	        try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
+	            pstmt.setInt(1, idVenta);
+	            ResultSet rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	                venta = new TransferVentas();
+	                venta.setId(rs.getInt("id"));
+	                venta.setFecha(rs.getDate("fecha"));
+	                venta.setProducto(rs.getString("producto"));
+	                venta.setCantidad(rs.getInt("cantidad"));
+	                venta.setPrecio(rs.getDouble("precio"));
+	                venta.setIncidencia(rs.getString("incidencia"));
+	                venta.setDetalles(rs.getString("detalles_incidencia"));
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            dbConnection.desconectar();
+	        }
+	    }
+
+	    return venta;
+	}
+
 }

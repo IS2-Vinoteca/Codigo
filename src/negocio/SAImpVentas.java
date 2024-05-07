@@ -40,14 +40,47 @@ public class SAImpVentas implements SAVentas{
 		DAOImpVentas daoventas = new DAOImpVentas();
 		return daoventas.eliminarVenta(idVenta);
 	}
-	public boolean actualizarIncidencia(int idVenta, String incidencia, String detalles) {
-		DAOImpVentas daoventas = new DAOImpVentas();
-		return daoventas.actualizarIncidencia(idVenta,incidencia, detalles);
+	
+	@Override
+	public TransferVentas obtenerVentaPorId(int idVenta) {
+	    DAOImpVentas daoventas = new DAOImpVentas();
+	    return daoventas.obtenerVentaPorId(idVenta);
 	}
 	
+	@Override
+	public boolean actualizarIncidencia(int idVenta, String estado, String detalles) {
+        DAOImpVentas daoventas = new DAOImpVentas();
+        boolean success = daoventas.actualizarIncidencia(idVenta, estado, detalles);
+        if (success) {
+            TransferVentas venta = obtenerVentaPorId(idVenta); 
+            if (venta != null) {
+                switch (estado) {
+                    case "Abierta":
+                        venta.setEstado(new StateAbierta());
+                        break;
+                    case "En proceso":
+                        venta.setEstado(new StateEnProceso());
+                        break;
+                    case "Resuelta":
+                        venta.setEstado(new StateResuelta());
+                        break;
+                }
+            }
+        }
+        return success;
+    }
+	
 	public boolean registrarVenta(Date fecha, String producto, int cantidad, double precio) {
+        
 		DAOImpVentas daoventas = new DAOImpVentas();
-		return daoventas.registrarVenta(fecha, producto, cantidad, precio);
-	}
+        
+		boolean success = daoventas.registrarVenta(fecha, producto, cantidad, precio);
+        if (success) {
+            TransferVentas venta = new TransferVentas();
+            venta.setEstado(new StateAbierta());
+            venta.procesarIncidencia();
+        }
+        return success;
+    }
 	
 }

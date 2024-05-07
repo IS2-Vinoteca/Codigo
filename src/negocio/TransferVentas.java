@@ -3,15 +3,16 @@ package negocio;
 import java.io.Serializable;
 import java.util.Date;
 
-
 public class TransferVentas implements Serializable{
-    private int id;
+    
+	private int id;
     private Date fecha;
     private String producto;
     private int cantidad;
     private double precio;
     private String incidencia;
     private String detalles;
+    private StateVenta estado;
 	
     // Constructor
 	
@@ -86,7 +87,15 @@ public class TransferVentas implements Serializable{
     public void setIncidencia(String incidencia) {
         this.incidencia = incidencia;
     }
+    
+    public void setEstado(StateVenta estado) {
+        this.estado = estado;
+    }
 
+    public void procesarIncidencia() {
+        estado.procesarIncidencia(this);
+    }
+    
     // Método toString para representación de cadena
    
     public String toString() {
@@ -99,4 +108,5 @@ public class TransferVentas implements Serializable{
                 ", incidencia='" + incidencia + '\'' +
                 '}';
     }
+    
 }

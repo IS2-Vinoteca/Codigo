@@ -18,7 +18,6 @@ public class AccionesUsuario extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 		private JTextField nifField;
-		//private JTextField empresaField;
 
 		public AccionesUsuario(JFrame parent, String accion) {
 			super(parent, "Gestion de usuario", true);

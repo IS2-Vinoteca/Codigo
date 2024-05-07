@@ -55,6 +55,52 @@ public class ModeloVenta extends JDialog{
 		    // Agregar la tabla al panel
 		    panel.add(scrollPane, BorderLayout.CENTER);
 
+		    JButton actualizarIncidenciaButton = new JButton("Actualizar Incidencia");
+		    actualizarIncidenciaButton.addActionListener(e -> {
+		        // Obtener el índice de la fila seleccionada
+		        int selectedRow = table.getSelectedRow();
+		        if (selectedRow != -1) {
+		            // Obtener el ID de la venta seleccionada
+		            int idVenta = (int) tableModel.getValueAt(selectedRow, 0);
+		            
+		            // Crear y configurar un JDialog para actualizar la incidencia
+		            JDialog dialog = new JDialog(this, "Actualizar Incidencia", true);
+		            JComboBox<String> estadoComboBox = new JComboBox<>(new String[]{"Abierta", "En proceso", "Resuelta"});
+		            JButton confirmarButton = new JButton("Confirmar");
+		            confirmarButton.addActionListener(ev -> {
+		                // Obtener el nuevo estado de la incidencia seleccionado por el usuario
+		                String nuevoEstado = (String) estadoComboBox.getSelectedItem();
+		                
+		                // Actualizar el estado de la incidencia en la base de datos
+		                SAImpVentas ventas = SAImpVentas.getInstance();                    
+		                boolean actualizado = ventas.actualizarIncidencia(idVenta, nuevoEstado, null); // Detalles de incidencia null porque no los estamos actualizando aquí
+		                if (actualizado) {
+		                    JOptionPane.showMessageDialog(dialog, "Estado de la incidencia actualizado para la venta seleccionada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+		                    dialog.dispose(); // Cerrar el diálogo después de confirmar
+		                } else {
+		                    JOptionPane.showMessageDialog(dialog, "No se pudo actualizar el estado de la incidencia.", "Error", JOptionPane.ERROR_MESSAGE);
+		                }
+		            });
+		            
+		            // Configurar el diseño del diálogo
+		            JPanel panelEstado = new JPanel(new BorderLayout());
+		            panelEstado.add(new JLabel("Seleccionar nuevo estado de la incidencia:"), BorderLayout.NORTH);
+		            panelEstado.add(estadoComboBox, BorderLayout.CENTER);
+		            panelEstado.add(confirmarButton, BorderLayout.SOUTH);
+		            dialog.add(panelEstado);
+		            
+		            dialog.pack();
+		            dialog.setLocationRelativeTo(this);
+		            dialog.setVisible(true);
+		        } else {
+		            JOptionPane.showMessageDialog(this, "Por favor, seleccione una venta para actualizar la incidencia.", "Información", JOptionPane.INFORMATION_MESSAGE);
+		        }
+		    });
+
+
+		    // Agregar el botón al panel
+		    panel.add(actualizarIncidenciaButton, BorderLayout.SOUTH);
+		    
 		    // Agregar el panel al JFrame
 		    setContentPane(panel);
 		    pack();

@@ -13,4 +13,6 @@ public interface DAOVentas {
 	public boolean eliminarVenta(int idVenta);
 	public boolean actualizarIncidencia(int idVenta, String estado, String detalles);
 	public boolean registrarVenta(Date fecha, String producto, int cantidad, double precio);
+	public TransferVentas obtenerVentaPorId(int idVenta);
+
 }

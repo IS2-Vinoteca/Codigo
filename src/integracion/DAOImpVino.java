@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 import ddbb.DBConnection;
+import negocio.TransferUsuario;
 import negocio.TransferVino;
 
 public class DAOImpVino implements DAOVino {
@@ -54,11 +55,12 @@ public class DAOImpVino implements DAOVino {
 
 	@Override
 	public TransferVino buscarVino(int id) {
-		// String resultados = "";
+	
 		TransferVino vino_buscado = null;
 		Connection conexion = dbConnection.getConnection();
 
 		if (conexion != null) {
+			
 			String sql = "SELECT * FROM inventario WHERE id = ?";
 			try (PreparedStatement consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 				consulta.setInt(1, id);
@@ -80,68 +82,85 @@ public class DAOImpVino implements DAOVino {
 		}
 		return vino_buscado;
 	}
+	
+	@Override
+	public boolean vinoExists(int id) {
+	    Connection conexion = dbConnection.getConnection();
+	    boolean exists = false;
+	    
+	    if (conexion != null) {
+	        String query = "SELECT id FROM inventario WHERE id = ?";
+	        try (PreparedStatement pstmt = conexion.prepareStatement(query)) {
+	            pstmt.setInt(1, id);
+	            try (ResultSet rs = pstmt.executeQuery()) {
+	                if (rs.next()) {
+	                    exists = true; // Si hay al menos una fila, el vino existe
+	                }
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            // Aquí no es necesario cerrar la conexión, ya que lo haces en el DAOImpVino
+	        }
+	    }
+	    return exists;
+	}
 
-	@SuppressWarnings("null") // si un valor es nulo y no queremos que salte error
+
 	@Override
 	public int addVino(TransferVino vino) {
 
-		int idGenerado = -1; // Valor por defecto si el vino ya existe
-		Connection conexion = dbConnection.getConnection();
-		// PreparedStatement consulta = null;
+	    int idGenerado = -1; // Valor por defecto si el vino ya existe
+	    Connection conexion = dbConnection.getConnection();
 
-		if (conexion != null) {
-			// Preparar la consulta SQL para insertar un nuevo vino
-			String sql = "INSERT INTO inventario (id, winery, wine, year, rating, num_reviews, num_reviews_grp, region, price, "
-					+ "type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description, catalogo) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			try (PreparedStatement consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-				// consulta = conexion.prepareStatement(sql,
-				// PreparedStatement.RETURN_GENERATED_KEYS);
-				consulta.setInt(1, vino.getId());
-				consulta.setString(2, vino.getWinery());
-				consulta.setString(3, vino.getWine());
-				consulta.setInt(4, vino.getYear());
-				consulta.setDouble(5, vino.getRating());
-				consulta.setInt(6, vino.getNum_reviews());
-				consulta.setString(7, vino.getNum_reviews_grp());
-				consulta.setDouble(9, vino.getPrice());
-				consulta.setString(8, vino.getRegion());
-				consulta.setString(10, vino.getType());
-				consulta.setInt(11, vino.getBody());
-				consulta.setInt(12, vino.getAcidity());
-				consulta.setString(13, vino.getAcidity_level());
-				consulta.setString(14, vino.getTaste());
-				consulta.setString(15, vino.getAccomp_meal());
-				consulta.setString(16, vino.getCategory());
-				consulta.setDouble(17, vino.getAlcohol_percentage());
-				consulta.setInt(18, vino.getUds_vino());
-				consulta.setString(19, vino.getDescription());
-				consulta.setInt(20, vino.getCatalogo());
-				consulta.executeUpdate();
+	    if (conexion != null) {
+	        String sql = "INSERT INTO inventario (id, winery, wine, year, rating, num_reviews, num_reviews_grp, region, price, "
+	                + "type, body, acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description, catalogo) "
+	                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	        try (PreparedStatement consulta = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+	            consulta.setInt(1, vino.getId());
+	            consulta.setString(2, vino.getWinery());
+	            consulta.setString(3, vino.getWine());
+	            consulta.setInt(4, vino.getYear());
+	            consulta.setDouble(5, vino.getRating());
+	            consulta.setInt(6, vino.getNum_reviews());
+	            consulta.setString(7, vino.getNum_reviews_grp());
+	            consulta.setString(8, vino.getRegion());
+	            consulta.setDouble(9, vino.getPrice());
+	            consulta.setString(10, vino.getType());
+	            consulta.setInt(11, vino.getBody());
+	            consulta.setInt(12, vino.getAcidity());
+	            consulta.setString(13, vino.getAcidity_level());
+	            consulta.setString(14, vino.getTaste());
+	            consulta.setString(15, vino.getAccomp_meal());
+	            consulta.setString(16, vino.getCategory());
+	            consulta.setDouble(17, vino.getAlcohol_percentage());
+	            consulta.setInt(18, vino.getUds_vino());
+	            consulta.setString(19, vino.getDescription());
+	            consulta.setInt(20, vino.getCatalogo());
 
-				int filasInsertadas = consulta.executeUpdate();
+	            int filasInsertadas = consulta.executeUpdate();
 
-				if (filasInsertadas > 0) {
-					// Obtener el ID generado para el nuevo vino
-					var generatedKeys = consulta.getGeneratedKeys();
-					if (generatedKeys.next()) {
-						idGenerado = generatedKeys.getInt(1);
-					}
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					dbConnection.desconectar();
-					if (conexion != null)
-						conexion.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+	            if (filasInsertadas > 0) {
+	                var generatedKeys = consulta.getGeneratedKeys();
+	                if (generatedKeys.next()) {
+	                    idGenerado = generatedKeys.getInt(1);
+	                }
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        } finally {
+	            try {
+	                dbConnection.desconectar();
+	                if (conexion != null)
+	                    conexion.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
 
-		return idGenerado;
+	    return idGenerado;
 	}
 
 	@Override
@@ -156,7 +175,6 @@ public class DAOImpVino implements DAOVino {
 					+ "uds_vino = ?, description = ?, catalogo = ? WHERE id = ?";
 			consulta = conexion.prepareStatement(sql);
 
-			consulta.setInt(19, vino.getId());
 			consulta.setString(1, vino.getWinery());
 			consulta.setString(2, vino.getWine());
 			consulta.setInt(3, vino.getYear());
@@ -175,7 +193,8 @@ public class DAOImpVino implements DAOVino {
 			consulta.setDouble(16, vino.getAlcohol_percentage());
 			consulta.setInt(17, vino.getUds_vino());
 			consulta.setString(18, vino.getDescription());
-			consulta.setInt(20, vino.getCatalogo());
+			consulta.setInt(19, vino.getCatalogo());
+			consulta.setInt(20, vino.getId());
 			consulta.executeUpdate();
 
 		} catch (SQLException e) {
@@ -498,31 +517,32 @@ public class DAOImpVino implements DAOVino {
 	}
 
 	private TransferVino fillIn_vino(ResultSet resultado) throws SQLException {
-		int id = resultado.getInt("id");
-		String winery = resultado.getString("winery");
-		String wine = resultado.getString("wine");
-		int year = resultado.getInt("year");
-		double rating = resultado.getDouble("rating");
-		int num_reviews = resultado.getInt("num_reviews");
-		String num_reviews_grp = resultado.getString("num_reviews_grp");
-		String region = resultado.getString("region");
-		double price = resultado.getDouble("price");
-		String type = resultado.getString("type");
-		int body = resultado.getInt("body");
-		int acidity = resultado.getInt("acidity");
-		String acidity_level = resultado.getString("acidity_level");
-		String taste = resultado.getString("taste");
-		String accomp_meal = resultado.getString("accomp_meal");
-		String category = resultado.getString("category");
-		double alcohol_percentage = resultado.getDouble("alcohol_percentage");
-		int uds_vino = resultado.getInt("uds_vino");
-		String description = resultado.getString("description");
-		int catalogo = resultado.getInt("catalogo");
+	    int id = resultado.getInt("id");
+	    String winery = resultado.getString("winery");
+	    String wine = resultado.getString("wine");
+	    int year = resultado.getInt("year");
+	    double rating = resultado.getDouble("rating");
+	    int num_reviews = resultado.getInt("num_reviews");
+	    String num_reviews_grp = resultado.getString("num_reviews_grp");
+	    double price = resultado.getDouble("price"); // Reordenar para que coincida con la posición en la consulta SQL
+	    String region = resultado.getString("region");
+	    String type = resultado.getString("type");
+	    int body = resultado.getInt("body");
+	    int acidity = resultado.getInt("acidity");
+	    String acidity_level = resultado.getString("acidity_level");
+	    String taste = resultado.getString("taste");
+	    String accomp_meal = resultado.getString("accomp_meal");
+	    String category = resultado.getString("category");
+	    double alcohol_percentage = resultado.getDouble("alcohol_percentage");
+	    int uds_vino = resultado.getInt("uds_vino");
+	    String description = resultado.getString("description");
+	    int catalogo = resultado.getInt("catalogo");
 
-		return new TransferVino(id, winery, wine, year, rating, num_reviews, num_reviews_grp, price, region, type, body,
-				acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description,
-				catalogo);
+	    return new TransferVino(id, winery, wine, year, rating, num_reviews, num_reviews_grp, price, region, type, body,
+	            acidity, acidity_level, taste, accomp_meal, category, alcohol_percentage, uds_vino, description,
+	            catalogo);
 	}
+
 
 	private String fillIn_ResultadoConsulta(ResultSet resultado) throws SQLException {
 		int id = resultado.getInt("id");
