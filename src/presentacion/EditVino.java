@@ -105,7 +105,7 @@ public class EditVino extends JDialog {
         accomp_mealField = new JTextField(vino.getAccomp_meal());
 
         JLabel categoryLabel = new JLabel("Categoría:");
-        String[] categories = {"Red", "White", "Fortified"}; 
+        String[] categories = {"Red", "White", "Fortified", "Sparkling", "Rosé"}; 
         categoryComboBox = new JComboBox<>(categories); 
         categoryComboBox.setSelectedItem(vino.getCategory());
 

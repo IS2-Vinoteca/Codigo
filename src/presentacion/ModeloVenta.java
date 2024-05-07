@@ -183,7 +183,7 @@ public class ModeloVenta extends JDialog{
                     
                     // Cambiar el estado de incidencia de la venta en la base de datos
                     SAImpVentas ventas = SAImpVentas.getInstance();                    
-                    boolean actualizado = ventas.actualizarIncidencia(idVenta, "1", detallesIncidencia);
+                    boolean actualizado = ventas.actualizarIncidencia(idVenta, "Abierta", detallesIncidencia);
                     if (actualizado) {
                         JOptionPane.showMessageDialog(dialog, "Incidencia generada para la venta seleccionada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                         dialog.dispose(); // Cerrar el diálogo después de confirmar

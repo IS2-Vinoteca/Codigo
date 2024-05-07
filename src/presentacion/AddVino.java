@@ -91,7 +91,7 @@ public class AddVino extends JDialog {
         accomp_mealField = new JTextField();
 
         JLabel categoryLabel = new JLabel("Categoría:");
-        String[] categories = {"Red", "White", "Fortified"}; // Categorías de vino
+        String[] categories = {"Red", "White", "Fortified", "Sparkling", "Rosé"}; // Categorías de vino
         categoryComboBox = new JComboBox<>(categories); // JComboBox<String>
 
         JLabel alcohol_percentageLabel = new JLabel("Porcentaje de Alcohol:");
