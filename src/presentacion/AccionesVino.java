@@ -15,24 +15,6 @@ public class AccionesVino extends JDialog {
 
     private static final long serialVersionUID = 1L;
     private JTextField idField;
-    private JTextField wineryField;
-    private JTextField wineField;
-    private JComboBox<Integer> yearComboBox;
-    private JComboBox<Double> ratingComboBox;
-    private JComboBox<Integer> reviewsComboBox;
-    private JTextField reviews_grpField;
-    private JTextField priceField;
-    private JTextField regionField;
-    private JTextField typeField;
-    private JComboBox<Integer> bodyComboBox;
-    private JComboBox<Integer> acidityComboBox;
-    private JComboBox<String> acidity_levelComboBox;
-    private JTextField tasteField;
-    private JTextField accomp_mealField;
-    private JComboBox<String> categoryComboBox;
-    private JComboBox<Double> alcohol_percentageComboBox;
-    private JComboBox<Integer> uds_vinoComboBox;
-    private JTextField descriptionField;
 
     public AccionesVino(JFrame parent, String accion) {
         super(parent, "Gestión de vinos", true);

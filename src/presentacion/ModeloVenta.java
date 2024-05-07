@@ -13,7 +13,11 @@ import negocio.TransferVentas;
 public class ModeloVenta extends JDialog{
 	
 	
-	   public ModeloVenta(JFrame parent, String accion) {
+	   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public ModeloVenta(JFrame parent, String accion) {
 		   super(parent, "listado", true);
 			
 			if(accion == "incidencias")

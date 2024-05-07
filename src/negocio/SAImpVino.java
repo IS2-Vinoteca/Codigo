@@ -3,7 +3,6 @@ package negocio;
 import java.util.Calendar;
 import java.util.List;
 
-import integracion.DAOImpUsuario;
 import integracion.DAOImpVino;
 
 public class SAImpVino implements SAVino {

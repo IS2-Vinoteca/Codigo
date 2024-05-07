@@ -78,7 +78,6 @@ public class ModeloCompra extends JFrame {
 
         //recorremos la lista de vinos y creamos un panel para cada uno
         
-        TransferVino v = new TransferVino();
         SAImpVino saImpVino = SAImpVino.getInstance();
         List<TransferVino> listaVinos = saImpVino.realizarConsultaCatalogo();
 

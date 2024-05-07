@@ -5,13 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-import javax.swing.JOptionPane;
-
 import java.util.ArrayList;
 
 import ddbb.DBConnection;
-import negocio.TransferUsuario;
 import negocio.TransferVino;
 
 public class DAOImpVino implements DAOVino {

@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class TransferVentas implements Serializable{
     
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
     private Date fecha;
     private String producto;

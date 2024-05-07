@@ -1,29 +1,20 @@
 package presentacion;
 
 import java.awt.BorderLayout;
-//nuevo
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class MainWindow extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel mainPanel;
     
-    //private ModeloConsulta modeloConsulta;
-   // private MenuPrincipalCliente menuPrincipal;
 	private Controller controller;
-   
     
     public MainWindow() {
     	super("Malbec") ; 
